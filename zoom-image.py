@@ -7,6 +7,9 @@ from psutil import ZombieProcess
 
 # variables globales
 NOMBRE_IMAGEN = "test-image.bmp"
+PIXELES_IMAGEN = 392
+ZOOM = 4
+PIXELES_NIMAGEN = PIXELES_IMAGEN // ZOOM
 
 # funcion para leer la imagen
 def leer_imagen(ruta):
@@ -48,41 +51,38 @@ def zoom_imagen(lista, seccion):
 
     output: lista_zoom -> lista con el zoom aplicado
     """
-    dir_inicial = seccion * 98
-    lista_zoom = [0] * (153664 - 3 * 392)
+    #dir_inicial = (seccion // 4) * PIXELES_IMAGEN + (seccion % 4) * PIXELES_NIMAGEN
+    #dir_inicial = ((PIXELES_IMAGEN ** 2) // 16) * seccion
+    #dir_inicial = (PIXELES_NIMAGEN ** 2) * seccion
+    dir_inicial = (seccion // 4) * PIXELES_IMAGEN*PIXELES_NIMAGEN + (seccion % 4) * PIXELES_NIMAGEN
+    lista_zoom = [0] * (PIXELES_IMAGEN**2 - 3 * PIXELES_IMAGEN)
 
     # Para añadir elementos que ya se conocen de
     contador = 0 
-    while (contador < 153664):
-        elem = 0
-        numFila = contador // 392
-        numColumna = contador % 392
-        if (numFila % 4 == 0):
-            if(numColumna % 4 == 0):
-                ref = dir_inicial + contador // 4
+    while (contador < PIXELES_IMAGEN**2):
+        numFila = contador // PIXELES_IMAGEN
+        numColumna = contador % PIXELES_IMAGEN
+        if (numFila % ZOOM == 0):
+            if(numColumna % ZOOM == 0):
+                ref = dir_inicial + contador // ZOOM
                 lista_zoom[contador] = lista[ref]
 
         contador += 1
 
     # Para completar elementos en las columnas
     
+    
     contador = 0
-    while (contador < 153664 - 3*392):
-        numFila = contador // 392
-        numColumna = contador % 392
-        if (numFila % 4 != 0):
-            if(numColumna % 4 == 0):
+    while (contador < PIXELES_IMAGEN**2 - 3*PIXELES_IMAGEN):
+        numFila = contador // PIXELES_IMAGEN
+        numColumna = contador % PIXELES_IMAGEN
+        if (numFila % ZOOM != 0):
+            if(numColumna % ZOOM == 0):
                 #ref1 = dir_inicial + (numFila // 4) * 392 + (numColumna // 4)
                 #ref2 = dir_inicial + ((numFila // 4) + 4) * 392 + (numColumna // 4)
-                ref1 = contador - (numFila % 4 * 392)
-                ref2 = ref1 + 392 * 4
+                ref1 = contador - (numFila % ZOOM * PIXELES_IMAGEN)
+                ref2 = ref1 + PIXELES_IMAGEN * ZOOM
 
-                """
-                print("Informacion para contador: ", contador)
-                print("ref1: ", ref1)
-                print("ref2: ", ref2)
-                print("\n")
-                """
                 sum1 = ((ref2 - contador) / (ref2 - ref1)) * lista_zoom[ref1]
                 sum2 = ((contador - ref1) / (ref2 - ref1)) * lista_zoom[ref2]
                 lista_zoom[contador] = int(sum1 + sum2)
@@ -90,6 +90,7 @@ def zoom_imagen(lista, seccion):
         contador += 1
 
     # Para completar el resto de elementos
+    
     
     contador = 0
     while (contador < 153664 - 3*392 - 4):
@@ -102,24 +103,32 @@ def zoom_imagen(lista, seccion):
             ref1 = contador - (numColumna % 4)
             ref2 = ref1 + 4
 
-            """
-            print("Informacion para contador: ", contador)
-            print("ref1: ", ref1)
-            print("ref2: ", ref2)
-            print("\n")
-            """
             sum1 = ((ref2 - contador) / (ref2 - ref1)) * lista_zoom[ref1]
             sum2 = ((contador - ref1) / (ref2 - ref1)) * lista_zoom[ref2]
             lista_zoom[contador] = int(sum1 + sum2)
 
         contador += 1
-        
     
-    #print(lista_zoom)
-
+    
     return lista_zoom
 
+def guardar_archivo(nombre_archivo, lista):
+    f = open(nombre_archivo, 'w')
+    result = ""
+
+    cont = 0
+    for item in lista:
+        result += str(lista[cont]) + " "
+        if ((cont + 1) % 392 == 0):
+            result += "\n"
+        
+        cont += 1
+
+    f.write(result)
+    f.close()
 
 lista_grises = escala_grises(NOMBRE_IMAGEN)
-lista_zoom = zoom_imagen(lista_grises, 9)
-guardar_imagen("test-image-grises.bmp", lista_grises)
+guardar_archivo("matriz-gris.txt", lista_grises)
+lista_zoom = zoom_imagen(lista_grises, 15)
+guardar_archivo("matriz-zoom.txt", lista_zoom)
+guardar_imagen("test-image-grises.bmp", lista_zoom)
