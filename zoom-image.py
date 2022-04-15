@@ -1,33 +1,49 @@
-# imports
+# IMPORTACIONES
 
 from weakref import ref
 import numpy as np
 import imageio
 from psutil import ZombieProcess
 
-# variables globales
-NOMBRE_IMAGEN = "test-image.bmp"
+# VARIABLES GLOBALES
+
+NOMBRE_IMAGEN = "images/test-image.bmp"
 PIXELES_IMAGEN = 392
 ZOOM = 4
 PIXELES_NIMAGEN = PIXELES_IMAGEN // ZOOM
 
-# funcion para leer la imagen
+# FUNCIONES
+
 def leer_imagen(ruta):
+    """
+    Esta funcion guarda la imagen especificada en la ruta en una lista
+    que contiene el RGB de cada pixel.
+    """
     return np.array(imageio.imread(ruta), dtype='int').tolist()
 
-# funcion para guardar la imagen
 def guardar_imagen(ruta, lista):
+    """
+    Esta funcion guarda la imagen especificada en una lista como escala de grises
+    en la ruta espcificada.
+    """
+
+    # convertir la lista en una matriz que especifique las filas y columnas para la imagen
     matriz = []
     for y in range(389):
         tempList = []
         for x in range(392):
-            elem = y*392 + x
+            elem = y * 392 + x
             tempList.append(lista[elem])
         matriz.append(tempList)
 
     return imageio.imwrite(ruta, np.array(matriz, dtype="uint8"))
 
 def escala_grises(nombre_imagen):
+    """
+    Esta funcion convierte la imagen especificada de RGB a una
+    lista en escala de grises. En esta lista retornada cada elemento
+    corresponde a la escala de gris de un pixel.
+    """
     matriz = leer_imagen(nombre_imagen)
     ancho = 392
     alto = 392
@@ -51,37 +67,43 @@ def zoom_imagen(lista, seccion):
 
     output: lista_zoom -> lista con el zoom aplicado
     """
-    #dir_inicial = (seccion // 4) * PIXELES_IMAGEN + (seccion % 4) * PIXELES_NIMAGEN
-    #dir_inicial = ((PIXELES_IMAGEN ** 2) // 16) * seccion
-    #dir_inicial = (PIXELES_NIMAGEN ** 2) * seccion
-    dir_inicial = (seccion // 4) * PIXELES_IMAGEN*PIXELES_NIMAGEN + (seccion % 4) * PIXELES_NIMAGEN
-    lista_zoom = [0] * (PIXELES_IMAGEN**2 - 3 * PIXELES_IMAGEN)
 
-    # Para añadir elementos que ya se conocen de
-    contador = 0 
+    # se calcula el numero de pixel inicial del zoom de la imagen en la
+    # imagen original
+    dir_inicial = (seccion // 4) * 392 * 98 + (seccion % 4) * 98
+
+    # esta lista ya en ensamblador solamente la consideramos como una
+    # direccion de memoria
+    lista_zoom = [0] * (392 ** 2 - 3 * 392) # para que cada pixel tenga valores conocidos a su lados se deben quitar las 3 últimas filas
+
+    # Primero se añaden a la memoria los elementos de la imagen que ya se conocen
+    # (reescribir los datos que ya se tienen de la imagen original)
+    contador = 0
     while (contador < PIXELES_IMAGEN**2):
-        numFila = contador // PIXELES_IMAGEN
-        numColumna = contador % PIXELES_IMAGEN
-        if (numFila % ZOOM == 0):
-            if(numColumna % ZOOM == 0):
-                ref = dir_inicial + contador // ZOOM
+        numFila = contador // 392
+        numColumna = contador % 392
+        # Si el contador se ubica en una posicion de valor conocido entnoces ahi se copia el valor
+        if (numFila % 4 == 0):
+            if (numColumna % 4 == 0):
+                # el valor a copiar se calcula con respecto a la direccion inicial
+                ref = dir_inicial + contador // 4
                 lista_zoom[contador] = lista[ref]
 
         contador += 1
-
-    # Para completar elementos en las columnas
     
-    
+    # Luego se añaden a la memoria los elementos de la imagen que completan las columnas
+    # de la nueva imagen, sin estos valores no se pueden calcular el resto
     contador = 0
-    while (contador < PIXELES_IMAGEN**2 - 3*PIXELES_IMAGEN):
-        numFila = contador // PIXELES_IMAGEN
-        numColumna = contador % PIXELES_IMAGEN
-        if (numFila % ZOOM != 0):
-            if(numColumna % ZOOM == 0):
-                #ref1 = dir_inicial + (numFila // 4) * 392 + (numColumna // 4)
-                #ref2 = dir_inicial + ((numFila // 4) + 4) * 392 + (numColumna // 4)
-                ref1 = contador - (numFila % ZOOM * PIXELES_IMAGEN)
-                ref2 = ref1 + PIXELES_IMAGEN * ZOOM
+    while (contador < 392**2 - 3*392):
+        numFila = contador // 392
+        numColumna = contador % 392
+        # Si el contador se ubica en una columna principal pero no en una fila principal
+        if (numFila % 4 != 0):
+            if(numColumna % 4 == 0):
+                # ref1 y ref2 son las posiciones de los valores que se necesitan para calcular
+                #   los valores de las columnas restantes.
+                ref1 = contador - (numFila % 4 * 392)
+                ref2 = ref1 + 392 * 4
 
                 sum1 = ((ref2 - contador) / (ref2 - ref1)) * lista_zoom[ref1]
                 sum2 = ((contador - ref1) / (ref2 - ref1)) * lista_zoom[ref2]
@@ -89,17 +111,16 @@ def zoom_imagen(lista, seccion):
 
         contador += 1
 
-    # Para completar el resto de elementos
-    
-    
+    # Por ultimo, se añade el resto de los valores en la lista de resultado, se deben completar
+    #   los valores de cada fila
     contador = 0
     while (contador < 153664 - 3*392 - 4):
         numFila = contador // 392
         numColumna = contador % 392
 
         if(numColumna % 4 != 0):
-            #ref1 = dir_inicial + (numFila // 4) * 392 + (numColumna // 4)
-            #ref2 = dir_inicial + ((numFila // 4) + 4) * 392 + (numColumna // 4)
+            # ref1 y ref2 son las posiciones de los valores que se necesitan para calcular
+            #   los valores de las filas restantes.
             ref1 = contador - (numColumna % 4)
             ref2 = ref1 + 4
 
@@ -113,9 +134,14 @@ def zoom_imagen(lista, seccion):
     return lista_zoom
 
 def guardar_archivo(nombre_archivo, lista):
+    """
+    Esta funcion guarda la lista que se tiene hasta el momento en un archivo de forma ordenada.
+    El objetivo es poder comprobar que se está guardando lo que se desea guardar.
+    """
     f = open(nombre_archivo, 'w')
-    result = ""
 
+    # Los valores obtenidos se acomodan en filas y columnas de 392 valores
+    result = ""
     cont = 0
     for item in lista:
         result += str(lista[cont]) + " "
@@ -127,8 +153,15 @@ def guardar_archivo(nombre_archivo, lista):
     f.write(result)
     f.close()
 
+# PROGRAMA
+
+# guardar en memoria la lista de escala de grises
 lista_grises = escala_grises(NOMBRE_IMAGEN)
-guardar_archivo("matriz-gris.txt", lista_grises)
-lista_zoom = zoom_imagen(lista_grises, 15)
-guardar_archivo("matriz-zoom.txt", lista_zoom)
-guardar_imagen("test-image-grises.bmp", lista_zoom)
+guardar_archivo("text-files/matriz-gris.txt", lista_grises)
+
+# crear la nueva imagen con el zoom en la posicion deseada
+lista_zoom = zoom_imagen(lista_grises, 9)
+guardar_archivo("text-files/matriz-zoom.txt", lista_zoom)
+
+# guardar el resultado de la imagen
+guardar_imagen("images/test-image-grises.bmp", lista_zoom)
