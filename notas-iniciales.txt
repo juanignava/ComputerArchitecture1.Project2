@@ -1,0 +1,82 @@
+Requisitos:
+- hacer un programa en alto nivel que pase una imagen del 
+tamaño que se quiere a un txt que contenga la escala de grises
+de cada uno de los pixeles. Este ejemplo nos puede servir:
+https://parzibyte.me/blog/2021/12/16/python-aplicar-escala-grises-imagen/
+
+---
+240
+230
+000
+010
+.
+.
+.
+255
+
+---
+
+11
+
+---
+255
+200
+.
+.
+.
+233
+---
+
+- hacer un pseudocódigo que resuelva el problema en ensamblador.
+
+- ya con el pseudocódigo se puede plantear un set de 
+instrucciones que pueda resolver el problema. Esto implica analizar:
+	> modos de direccionamiento a memoria.
+	> tamaño y tipo de datos.
+	> tipo y sintaxis de las intrucciones (su traducción a lenguaje
+	máquina)
+	> registros disponibles y sus nombres
+
+- Hacer un "compilador" que convierta el código en el ISA creado a 
+lenguaje máquina. También que pueda detectar riegos y resolverlos
+de forma estática (también se puede de forma dinámica pero creo que esto
+es más fácil)
+
+--
+SUM R1, R2
+SUM R1, R3
+--
+----
+101011101010111
+101011101010111
+101011101010111
+----
+
+intructions.txt -> memoria de instruncciones
+
+- Realizar la microarquitectura según las necesidades del ISA, esta
+tiene que tener pipeline. Algunos aspectos a considerar:
+	> la memoria tiene que estar segmentada entre datos e
+	instrucciones (puede ser una memoria RAM con banderas en donde
+	empieza cada sección).
+	> debe poder leer el programa y los datos de los txt que se definieron
+	antes.
+	> debe poder generar un txt con el resultado por mediod e la
+	simulación.
+	> cada unidad funcional debe tener unit tests.
+
+- hacer un programa de alto nivel que realice el proceso inverso, dado
+un texto que describa una imagen en escala de grises generar
+la imagen.
+
+Posible calendario:
+
+- se podría seguir el propuesto por el profe.
+
+Repositorios y documentos:
+- se pueden tratar los documentos del proyecto en quartus en github. 
+Junto con los txt donde se tengan los diferentes apuntes como:
+	> instrucciones necesarias
+	> pseudocódigo 
+- scripts de python que tratan las imágenes. 
+
