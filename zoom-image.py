@@ -160,7 +160,7 @@ lista_grises = escala_grises(NOMBRE_IMAGEN)
 guardar_archivo("text-files/matriz-gris.txt", lista_grises)
 
 # crear la nueva imagen con el zoom en la posicion deseada
-lista_zoom = zoom_imagen(lista_grises, 9)
+lista_zoom = zoom_imagen(lista_grises, 4)
 guardar_archivo("text-files/matriz-zoom.txt", lista_zoom)
 
 # guardar el resultado de la imagen
