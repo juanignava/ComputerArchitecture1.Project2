@@ -1,0 +1,16 @@
+SCI R1, R2, salto
+SCM R1, R2, salto
+SI salto
+SIF salto
+GDR R1, 2 (R2)
+CRG R1, 2 (R2)
+SUM R1, R2, R3
+RES R1, R2, R3
+MUL R1, R2, R3
+DIV R1, R2, R3
+RSD R1, R2, R3
+SUMI R1, R2, inm
+RESI R1, R2, inm
+MULI R1, R2, inm
+DIVI R1, R2, inm
+RSDI R1, R2, inm
