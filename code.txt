@@ -1,3 +1,4 @@
+for_loop:
 SCI R1, R2, salto
 SCM R1, R2, salto
 SI salto
@@ -14,3 +15,5 @@ RESI R1, R2, inm
 MULI R1, R2, inm
 DIVI R1, R2, inm
 RSDI R1, R2, inm
+elif:
+while:

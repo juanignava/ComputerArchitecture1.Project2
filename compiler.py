@@ -1,4 +1,4 @@
-# dictionary definitions
+# type dictionary definition
 typeDictionary = {
     "SCI": "00",
     "SCM": "00",
@@ -20,6 +20,7 @@ typeDictionary = {
     "RSDI": "10"
 }
 
+# opcode dictionary definition
 opcodeDictionary = {
     "SCI": "10",
     "SCM": "11",
@@ -41,6 +42,7 @@ opcodeDictionary = {
     "RSDI": "11100"
 }
 
+# register dictionary definition
 registerDictionary = {
     "R0": "0000",
     "R1": "0001",
@@ -60,12 +62,15 @@ registerDictionary = {
     "RS": "1111"
 }
 
+# label dictionary definition
+labelDictionary = {}
+
 # open code.txt file for reading
 codeFile = open('code.txt', 'r')
 codeLines = codeFile.readlines()
 
-# variable to know tue number of the current line
-pointerLine = -1
+# variable to know the number of the current line
+pointerLine = 0
 
 # loop to iterate the code file line by line
 for line in codeLines:
@@ -77,123 +82,153 @@ for line in codeLines:
 
     elements = []
     temp = ""
+
+
+    # slicing the current line to get the 2 first letters
+    #aux2 = line[:2]
+
+    # slicing the current line to get the 3 first letters
+    #aux3 = line[:3]
+
+    # slicing the current line to get the 4 first letters
+    #aux4 = line[:4]
+
+    #print(line[-2])
+
+    #break
+
+
+    """
+    print("aux2 = ", aux2)
+    print("aux3 = ", aux3)
+    print("aux4 = ", aux4)
+
+    print("aux2 in = ", aux2 in opcodeDictionary)
+    print("aux3 in = ", aux3 in opcodeDictionary)
+    print("aux4 in = ", aux4 in opcodeDictionary)
+    """
+
+    # slicing the current line to get the last element
+    aux = line[-2]
+
     
-    # loop to iterate the current line char by char
-    for char in line:
+    #if((aux2 in opcodeDictionary) == True or (aux3 in opcodeDictionary) == True or (aux4 in opcodeDictionary) == True):
 
-        if(char == " " or char == "," or char == "(" or char == ")"):
 
-            # check if the current instruction is a memory one to change the flag
-            if(char == "("):
-                memoryFlag = 1
 
-            if(temp != ""):
-                elements.append(temp)
+    # current line contains an instruction
+    if(aux != ":"):
 
-            temp = ""            
+        # loop to iterate the current line char by char
+        for char in line:
 
-        else:
+            if(char == " " or char == "," or char == "(" or char == ")"):
 
-            temp += char
+                # check if the current instruction is a memory one to change the flag
+                if(char == "("):
+                    memoryFlag = 1
 
-    # slice \n from the last element
-    temp = temp[:-1]
+                if(temp != ""):
+                    elements.append(temp)
 
-    elements.append(temp)    
-    
-    # remove last element if the current instruction is a memory one
-    if(memoryFlag == 1):
-        elements.pop()
+                temp = ""            
 
-    print("elements = ", elements)   
+            else:
 
-    instructionType = typeDictionary[elements[0]]
-    opcode = opcodeDictionary[elements[0]]
+                temp += char
 
-    register1 = ""
-    register2 = ""
-    register3 = ""
-    direction = ""
-    immediate = ""
-    filling = "0000000000000"
+        # slice \n from the last element
+        temp = temp[:-1]
 
-    # control instruction
-    if(instructionType == "00"):
+        elements.append(temp)    
+        
+        # remove last element if the current instruction is a memory one
+        if(memoryFlag == 1):
+            elements.pop()
 
-        branch = opcode[0]
+        print("elements = ", elements)   
 
-        # conditional instruction
-        if(branch == "1"):
+        instructionType = typeDictionary[elements[0]]
+        opcode = opcodeDictionary[elements[0]]
+
+        register1 = ""
+        register2 = ""
+        register3 = ""
+        direction = ""
+        immediate = ""
+        filling = "0000000000000"
+
+        # control instruction
+        if(instructionType == "00"):
+
+            branch = opcode[0]
+
+            # conditional instruction
+            if(branch == "1"):
+
+                register1 = registerDictionary[elements[1]]
+                register2 = registerDictionary[elements[2]]
+                direction = elements[3]
+
+                instruction = instructionType + " " + opcode + " " + register1 + " " + register2 + " " + register3 + direction
+
+            # unconditional instruction
+            else:
+
+                direction = elements[1]
+
+                instruction = instructionType + " " + opcode + " " + direction
+
+        # memory instruction
+        elif(instructionType == "01"):
 
             register1 = registerDictionary[elements[1]]
-            register2 = registerDictionary[elements[2]]
-            direction = elements[3]
-
-            instruction = instructionType + " " + opcode + " " + register1 + " " + register2 + " " + register3 + direction
-
-        # unconditional instruction
-        else:
-
-            direction = elements[1]
-
-            instruction = instructionType + " " + opcode + " " + direction
-
-    # memory instruction
-    elif(instructionType == "01"):
-
-        register1 = registerDictionary[elements[1]]
-        immediate = elements[2]
-        register2 = registerDictionary[elements[3]]       
-
-        instruction = instructionType + " " + opcode + " " + register1 + " " + register2 + " " + immediate
-
-    # data instruction
-    else:
-
-        i = opcode[0]
-
-        # immediate
-        if(i == "1"):
-
-            register1 = registerDictionary[elements[1]]
-            register2 = registerDictionary[elements[2]]
-            immediate = elements[3]
+            immediate = elements[2]
+            register2 = registerDictionary[elements[3]]       
 
             instruction = instructionType + " " + opcode + " " + register1 + " " + register2 + " " + immediate
 
-        # no immediate
+        # data instruction
         else:
 
-            register1 = registerDictionary[elements[1]]
-            register2 = registerDictionary[elements[2]]
-            register3 = registerDictionary[elements[3]]
+            i = opcode[0]
 
-            instruction = instructionType + " " + opcode + " " + filling + " " + register1 + " " + register2 + " " + register3
+            # immediate
+            if(i == "1"):
+
+                register1 = registerDictionary[elements[1]]
+                register2 = registerDictionary[elements[2]]
+                immediate = elements[3]
+
+                instruction = instructionType + " " + opcode + " " + register1 + " " + register2 + " " + immediate
+
+            # no immediate
+            else:
+
+                register1 = registerDictionary[elements[1]]
+                register2 = registerDictionary[elements[2]]
+                register3 = registerDictionary[elements[3]]
+
+                instruction = instructionType + " " + opcode + " " + filling + " " + register1 + " " + register2 + " " + register3
+
+        print(instruction + "\n")
+
+    # current line contains a label
+    else:
+
+        labelDictionary[line[:-1]] = pointerLine
+        
+        print("LABEL -----------------------------------------------")
 
 
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
-    print(instruction + "\n")
+
+
+
+
+    
+    
     
     
     
@@ -207,7 +242,9 @@ for line in codeLines:
 
 
 
-    
+#print("Hola" in opcodeDictionary)    
+
+print(labelDictionary)
 
 
 
