@@ -1,3 +1,112 @@
+# binary => string
+def twoComplement(binary):
+
+    aux = ""
+
+    for i in binary:
+
+        if(i == "0"):
+
+            aux += "1"
+        
+        else:
+
+            aux += "0"
+
+    aux = int(aux, 2)
+
+    aux += 1
+
+    aux = bin(aux).replace("0b", "")
+
+    return aux
+
+# number => int
+# instructionType => string
+# opcode => string
+# pointerLine => int
+def signExtension(number, instructionType, opcode, pointerLine):
+
+    # control instruction
+    if(instructionType == "00"):
+
+        immediate = number - pointerLine
+
+    # memory or data instruction
+    else:
+
+        immediate = number
+
+    binary = bin(abs(immediate)).replace("0b", "")
+
+    binaryLength = len(binary)
+
+    # control instruction
+    if(instructionType == "00"):
+
+        conditional = opcode[0]
+
+        # conditional instruction
+        if(conditional == "1"):
+
+            extension = "0" * (20 - binaryLength)
+
+            binary = extension + binary
+
+            # PC - direction
+            if(immediate < 0):
+
+                binary =  twoComplement(binary)
+
+            return binary
+            
+        # unconditional instruction
+        else:
+
+            extension = "0" * (28 - binaryLength)
+
+            binary = extension + binary
+
+            # PC - direction
+            if(immediate < 0):
+
+                binary =  twoComplement(binary)
+
+            return binary            
+
+    # memory instruction
+    elif(instructionType == "01"):
+
+        extension = "0" * (18 - binaryLength)
+
+        binary = extension + binary
+
+        # PC - direction
+        if(immediate < 0):
+
+            binary =  twoComplement(binary)
+
+        return binary 
+
+    # data instruction
+    else:
+
+        flagImmediate = opcode[0]
+
+        # immediate
+        if(flagImmediate == "1"):
+
+            extension = "0" * (17 - binaryLength)
+
+            binary = extension + binary
+
+            # PC - direction
+            if(immediate < 0):
+
+                binary =  twoComplement(binary)
+
+            return binary 
+
 # type dictionary definition
 typeDictionary = {
     "SCI": "00",
@@ -76,6 +185,28 @@ pointerLine = 0
 for line in codeLines:
 
     pointerLine += 1
+
+    # slicing the current line to get the last element
+    aux = line[-2]
+
+    # current line contains a label
+    if(aux == ":"):
+
+        labelDictionary[line[:-2]] = pointerLine
+        
+codeFile.close()
+
+# open code.txt file for reading
+codeFile = open('code.txt', 'r')
+codeLines = codeFile.readlines()
+
+# variable to know the number of the current line
+pointerLine = 0
+
+# loop to iterate the code file line by line
+for line in codeLines:
+
+    pointerLine += 1
     
     # variable to know if the current instruction is a memory one (type 01)
     memoryFlag = 0   
@@ -83,38 +214,8 @@ for line in codeLines:
     elements = []
     temp = ""
 
-
-    # slicing the current line to get the 2 first letters
-    #aux2 = line[:2]
-
-    # slicing the current line to get the 3 first letters
-    #aux3 = line[:3]
-
-    # slicing the current line to get the 4 first letters
-    #aux4 = line[:4]
-
-    #print(line[-2])
-
-    #break
-
-
-    """
-    print("aux2 = ", aux2)
-    print("aux3 = ", aux3)
-    print("aux4 = ", aux4)
-
-    print("aux2 in = ", aux2 in opcodeDictionary)
-    print("aux3 in = ", aux3 in opcodeDictionary)
-    print("aux4 in = ", aux4 in opcodeDictionary)
-    """
-
     # slicing the current line to get the last element
     aux = line[-2]
-
-    
-    #if((aux2 in opcodeDictionary) == True or (aux3 in opcodeDictionary) == True or (aux4 in opcodeDictionary) == True):
-
-
 
     # current line contains an instruction
     if(aux != ":"):
@@ -161,21 +262,25 @@ for line in codeLines:
         # control instruction
         if(instructionType == "00"):
 
-            branch = opcode[0]
+            conditional = opcode[0]
 
             # conditional instruction
-            if(branch == "1"):
+            if(conditional == "1"):
 
                 register1 = registerDictionary[elements[1]]
                 register2 = registerDictionary[elements[2]]
+
                 direction = elements[3]
+                direction = labelDictionary[direction]
+                direction = signExtension(direction, instructionType, opcode, pointerLine)
 
                 instruction = instructionType + " " + opcode + " " + register1 + " " + register2 + " " + register3 + direction
 
             # unconditional instruction
             else:
-
                 direction = elements[1]
+                direction = labelDictionary[direction]
+                direction = signExtension(direction, instructionType, opcode, pointerLine)
 
                 instruction = instructionType + " " + opcode + " " + direction
 
@@ -183,7 +288,10 @@ for line in codeLines:
         elif(instructionType == "01"):
 
             register1 = registerDictionary[elements[1]]
-            immediate = elements[2]
+
+            immediate = int(elements[2])
+            immediate = signExtension(immediate, instructionType, opcode, pointerLine)
+
             register2 = registerDictionary[elements[3]]       
 
             instruction = instructionType + " " + opcode + " " + register1 + " " + register2 + " " + immediate
@@ -191,14 +299,16 @@ for line in codeLines:
         # data instruction
         else:
 
-            i = opcode[0]
+            flagImmediate = opcode[0]
 
             # immediate
-            if(i == "1"):
+            if(flagImmediate == "1"):
 
                 register1 = registerDictionary[elements[1]]
                 register2 = registerDictionary[elements[2]]
-                immediate = elements[3]
+                
+                immediate = int(elements[3])
+                immediate = signExtension(immediate, instructionType, opcode, pointerLine)
 
                 instruction = instructionType + " " + opcode + " " + register1 + " " + register2 + " " + immediate
 
@@ -213,12 +323,6 @@ for line in codeLines:
 
         print(instruction + "\n")
 
-    # current line contains a label
-    else:
-
-        labelDictionary[line[:-1]] = pointerLine
-        
-        print("LABEL -----------------------------------------------")
 
 
 
@@ -236,28 +340,10 @@ for line in codeLines:
     
     
     
-  
+
     
     
-
-
-
-#print("Hola" in opcodeDictionary)    
-
-print(labelDictionary)
-
-
-
 
 
 
 codeFile.close()
-
-
-
-
-
-
-
-
-
