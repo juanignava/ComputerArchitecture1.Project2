@@ -1,10 +1,10 @@
 for_loop:
 SCI R1, R2, elif
-SCM R1, R2, while
+SCD R1, R2, while
 SI for_loop
 SIF check
-GDR R1, 2 (R2)
-CRG R1, 2 (R2)
+GDR R1, 1, 4 (R3)
+CRG R1, 2, 4 (R3)
 SUM R1, R2, R3
 RES R1, R2, R3
 MUL R1, R2, R3

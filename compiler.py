@@ -110,7 +110,7 @@ def signExtension(number, instructionType, opcode, pointerLine):
 # type dictionary definition
 typeDictionary = {
     "SCI": "00",
-    "SCM": "00",
+    "SCD": "00",
     "SI": "00",
     "SIF": "00",
 
@@ -132,7 +132,7 @@ typeDictionary = {
 # opcode dictionary definition
 opcodeDictionary = {
     "SCI": "10",
-    "SCM": "11",
+    "SCD": "11",
     "SI": "00",
     "SIF": "01",
 
@@ -177,6 +177,20 @@ labelDictionary = {}
 # open code.txt file for reading
 codeFile = open('code.txt', 'r')
 codeLines = codeFile.readlines()
+
+
+
+
+
+
+# open binaryCode.txt file for writing
+binaryCodeFile = open('binaryCode.txt', 'w')
+
+
+
+
+
+
 
 # variable to know the number of the current line
 pointerLine = 0
@@ -252,11 +266,11 @@ for line in codeLines:
         instructionType = typeDictionary[elements[0]]
         opcode = opcodeDictionary[elements[0]]
 
-        register1 = ""
-        register2 = ""
-        register3 = ""
-        direction = ""
-        immediate = ""
+        #register1 = ""
+        #register2 = ""
+        #register3 = ""
+        #direction = ""
+        #immediate = ""
         filling = "0000000000000"
 
         # control instruction
@@ -274,7 +288,9 @@ for line in codeLines:
                 direction = labelDictionary[direction]
                 direction = signExtension(direction, instructionType, opcode, pointerLine)
 
-                instruction = instructionType + " " + opcode + " " + register1 + " " + register2 + " " + register3 + direction
+                instruction = instructionType + opcode + register1 + register2 + direction
+
+                print(instructionType + " " + opcode + " " + register1 + " " + register2 + " " + direction)
 
             # unconditional instruction
             else:
@@ -282,19 +298,31 @@ for line in codeLines:
                 direction = labelDictionary[direction]
                 direction = signExtension(direction, instructionType, opcode, pointerLine)
 
-                instruction = instructionType + " " + opcode + " " + direction
+                instruction = instructionType + opcode + direction
+
+                print(instructionType + " " + opcode + " " + direction)
 
         # memory instruction
         elif(instructionType == "01"):
 
             register1 = registerDictionary[elements[1]]
 
-            immediate = int(elements[2])
+            section = bin(int(elements[2])).replace("0b", "")
+
+            sectionLength = len(section)
+
+            # sign extension for section value
+            for i in range(3 - sectionLength):
+                section = "0" + section
+
+            immediate = int(elements[3])
             immediate = signExtension(immediate, instructionType, opcode, pointerLine)
 
-            register2 = registerDictionary[elements[3]]       
+            register2 = registerDictionary[elements[4]]       
 
-            instruction = instructionType + " " + opcode + " " + register1 + " " + register2 + " " + immediate
+            instruction = instructionType + opcode + section + register1 + register2 + immediate
+
+            print(instructionType + " " + opcode + " " + section + " " + register1 + " " + register2 + " " + immediate)
 
         # data instruction
         else:
@@ -310,7 +338,9 @@ for line in codeLines:
                 immediate = int(elements[3])
                 immediate = signExtension(immediate, instructionType, opcode, pointerLine)
 
-                instruction = instructionType + " " + opcode + " " + register1 + " " + register2 + " " + immediate
+                instruction = instructionType + opcode + register1 + register2 + immediate
+
+                print(instructionType + " " + opcode + " " + register1 + " " + register2 + " " + immediate)
 
             # no immediate
             else:
@@ -319,18 +349,23 @@ for line in codeLines:
                 register2 = registerDictionary[elements[2]]
                 register3 = registerDictionary[elements[3]]
 
-                instruction = instructionType + " " + opcode + " " + filling + " " + register1 + " " + register2 + " " + register3
+                instruction = instructionType + opcode + filling + register1 + register2 + register3
 
-        print(instruction + "\n")
+                print(instructionType + " " + opcode + " " + filling + " " + register1 + " " + register2 + " " + register3)
 
+        #print(instruction + "\n")
+        print(" ")
 
-
-
-
-
-
+        binaryCodeFile.write(instruction + "\n")
 
 
+
+
+
+
+
+    
+    
     
     
     
@@ -338,12 +373,10 @@ for line in codeLines:
     
     
     
-    
-    
 
     
     
 
 
-
+binaryCodeFile.close()
 codeFile.close()
