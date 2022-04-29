@@ -1,3 +1,5 @@
+SUM R1, R2, R3
+RSDI R1, R1, 5
 for_loop:
 SCI R1, R2, elif
 SCD R1, R2, ciclo
