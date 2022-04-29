@@ -178,20 +178,6 @@ labelDictionary = {}
 codeFile = open('code.txt', 'r')
 codeLines = codeFile.readlines()
 
-
-
-
-
-
-# open binaryCode.txt file for writing
-binaryCodeFile = open('binaryCode.txt', 'w')
-
-
-
-
-
-
-
 # variable to know the number of the current line
 pointerLine = 0
 
@@ -206,7 +192,9 @@ for line in codeLines:
     # current line contains a label
     if(aux == ":"):
 
-        labelDictionary[line[:-2]] = pointerLine
+        pointerLine -= 1
+
+        labelDictionary[line[:-2]] = pointerLine + 1
         
 codeFile.close()
 
@@ -214,13 +202,16 @@ codeFile.close()
 codeFile = open('code.txt', 'r')
 codeLines = codeFile.readlines()
 
+# open binaryCode.txt file for writing
+binaryCodeFile = open('binaryCode.txt', 'w')
+
 # variable to know the number of the current line
 pointerLine = 0
 
 # loop to iterate the code file line by line
 for line in codeLines:
 
-    pointerLine += 1
+    #pointerLine += 1
     
     # variable to know if the current instruction is a memory one (type 01)
     memoryFlag = 0   
@@ -233,6 +224,8 @@ for line in codeLines:
 
     # current line contains an instruction
     if(aux != ":"):
+
+        pointerLine += 1
 
         # loop to iterate the current line char by char
         for char in line:
@@ -266,11 +259,6 @@ for line in codeLines:
         instructionType = typeDictionary[elements[0]]
         opcode = opcodeDictionary[elements[0]]
 
-        #register1 = ""
-        #register2 = ""
-        #register3 = ""
-        #direction = ""
-        #immediate = ""
         filling = "0000000000000"
 
         # control instruction
@@ -364,19 +352,8 @@ for line in codeLines:
 
 
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
 
 
+# closing binaryCodeFile and codeFile files
 binaryCodeFile.close()
 codeFile.close()
