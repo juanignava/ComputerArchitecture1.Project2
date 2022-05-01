@@ -1,9 +1,7 @@
 # IMPORTACIONES
 
-from weakref import ref
 import numpy as np
 import imageio
-from psutil import ZombieProcess
 
 # VARIABLES GLOBALES
 
