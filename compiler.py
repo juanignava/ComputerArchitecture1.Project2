@@ -105,7 +105,726 @@ def signExtension(number, instructionType, opcode, pointerLine):
 
                 binary =  twoComplement(binary)
 
-            return binary 
+            return binary
+
+
+
+
+
+
+
+
+
+# case 1: dependencies between instructions with 0 instructions among them
+# instructionElements => string list
+# typeDictionary => string dictionary
+# opcodeDictionary => string dictionary
+def stallInsertionCase1(instructionElements, typeDictionary, opcodeDictionary):
+
+    result = instructionElements.copy()
+
+    # this insertion avoids index out of range error
+    result.append("*")
+
+    stall = ['SUM', 'R0', 'R0', 'R0', "********************"]
+
+    i = 0
+
+    # loop to iterate each instruction
+    for j in result:       
+
+        if(result[i + 1] == "*"):
+            break
+
+        currentInstruction = j[0]
+
+        currentInstructionType = typeDictionary[currentInstruction]
+
+        currentDestiny = j[1]
+
+        if(currentDestiny != "R0"):
+
+            nextInstructionElements = result[i + 1]
+
+            nextInstruction = nextInstructionElements[0]
+
+            nextInstructionType = typeDictionary[nextInstruction]           
+
+            # control instruction
+            if(currentInstructionType == "00"):
+
+                result.insert(i + 1, stall)
+                result.insert(i + 2, stall)
+                result.insert(i + 3, stall)
+                result.insert(i + 4, stall)
+                
+            # memory instruction
+            elif(currentInstructionType == "01" and currentInstruction == "CRG"):            
+
+                # control instruction
+                if(nextInstructionType == "00"):
+
+                    nextOpcode = opcodeDictionary[nextInstruction]
+
+                    nextBranch = nextOpcode[0]
+
+                    # conditional instruction
+                    if(nextBranch == "1"):
+
+                        nextSource1 = nextInstructionElements[1]
+                        nextSource2 = nextInstructionElements[2]
+
+                        if(currentDestiny == nextSource1 or currentDestiny == nextSource2):
+
+                            result.insert(i + 1, stall)
+                            result.insert(i + 2, stall)
+                            result.insert(i + 3, stall)
+
+                # data instruction
+                elif(nextInstructionType == "10"):
+
+                    nextSource2 = nextInstructionElements[2]
+                    nextSource3 = nextInstructionElements[3]
+
+                    if(currentDestiny == nextSource2 or currentDestiny == nextSource3):
+
+                        result.insert(i + 1, stall)
+                        result.insert(i + 2, stall)
+                        result.insert(i + 3, stall)
+
+            # data instruction
+            else:
+                
+                # control instruction
+                if(nextInstructionType == "00"):
+
+                    nextOpcode = opcodeDictionary[nextInstruction]
+
+                    nextBranch = nextOpcode[0]
+
+                    # conditional instruction
+                    if(nextBranch == "1"):
+
+                        nextSource1 = nextInstructionElements[1]
+                        nextSource2 = nextInstructionElements[2]
+
+                        if(currentDestiny == nextSource1 or currentDestiny == nextSource2):
+
+                            result.insert(i + 1, stall)
+                            result.insert(i + 2, stall)
+                            result.insert(i + 3, stall)
+                    
+                # memory instruction
+                elif(nextInstructionType == "01"):
+
+                    nextOpcode = opcodeDictionary[nextInstruction]
+
+                    nextIns = nextOpcode[0]
+                    
+                    # GRD instruction
+                    if(nextIns == "0"):
+
+                        nextSource = nextInstructionElements[1]
+
+                        if(currentDestiny == nextSource):
+
+                            result.insert(i + 1, stall)
+                            result.insert(i + 2, stall)
+                            result.insert(i + 3, stall)
+                    
+                    # CRG instruction
+                    else:
+
+                        nextSource = nextInstructionElements[4]
+
+                        if(currentDestiny == nextSource):
+
+                            result.insert(i + 1, stall)
+                            result.insert(i + 2, stall)
+                            result.insert(i + 3, stall)
+
+                # data instruction
+                else:
+
+                    nextSource2 = nextInstructionElements[2]
+                    nextSource3 = nextInstructionElements[3]
+
+                    if(currentDestiny == nextSource2 or currentDestiny == nextSource3):
+
+                        result.insert(i + 1, stall)
+                        result.insert(i + 2, stall)
+                        result.insert(i + 3, stall)
+
+        i += 1
+
+    return result[:-1]
+    
+
+
+
+
+
+
+
+
+# case 2: dependencies between instructions with 1 instruction among them
+# instructionElements => string list
+# typeDictionary => string dictionary
+# opcodeDictionary => string dictionary
+def stallInsertionCase2(instructionElements, typeDictionary, opcodeDictionary):
+
+    result = instructionElements.copy()
+
+    # this insertion avoids index out of range error
+    result.append("*")
+
+    stall = ['SUM', 'R0', 'R0', 'R0', "********************"]
+
+    i = 0
+
+    # loop to iterate each instruction
+    for j in result:
+
+        if(result[i + 2] == "*"):
+            break
+
+        currentInstruction = j[0]
+
+        currentInstructionType = typeDictionary[currentInstruction]
+
+        currentDestiny = j[1]
+
+        if(currentDestiny != "R0"):
+
+            nextInstructionElements = result[i + 2]
+
+            nextInstruction = nextInstructionElements[0]
+
+            nextInstructionType = typeDictionary[nextInstruction]           
+
+            # control instruction
+            #if(currentInstructionType == "00"):
+
+                #result.insert(i + 1, stall)
+                #result.insert(i + 2, stall)
+                #result.insert(i + 3, stall)
+                #result.insert(i + 4, stall)
+                
+            # memory instruction
+            if(currentInstructionType == "01" and currentInstruction == "CRG"):            
+                
+                # control instruction
+                if(nextInstructionType == "00"):
+
+                    nextOpcode = opcodeDictionary[nextInstruction]
+
+                    nextBranch = nextOpcode[0]
+
+                    # conditional instruction
+                    if(nextBranch == "1"):
+
+                        nextSource1 = nextInstructionElements[1]
+                        nextSource2 = nextInstructionElements[2]
+
+                        if(currentDestiny == nextSource1 or currentDestiny == nextSource2):
+
+                            result.insert(i + 1, stall)
+                            result.insert(i + 2, stall)
+                
+                # data instruction
+                elif(nextInstructionType == "10"):
+
+                    nextSource2 = nextInstructionElements[2]
+                    nextSource3 = nextInstructionElements[3]
+
+                    if(currentDestiny == nextSource2 or currentDestiny == nextSource3):
+
+                        result.insert(i + 1, stall)
+                        result.insert(i + 2, stall)
+
+            # data instruction
+            else:
+                
+                # control instruction
+                if(nextInstructionType == "00"):
+
+                    nextOpcode = opcodeDictionary[nextInstruction]
+
+                    nextBranch = nextOpcode[0]
+
+                    # conditional instruction
+                    if(nextBranch == "1"):
+
+                        nextSource1 = nextInstructionElements[1]
+                        nextSource2 = nextInstructionElements[2]
+
+                        if(currentDestiny == nextSource1 or currentDestiny == nextSource2):
+
+                            result.insert(i + 1, stall)
+                            result.insert(i + 2, stall)
+
+                # memory instruction
+                elif(nextInstructionType == "01"):
+
+                    nextOpcode = opcodeDictionary[nextInstruction]
+
+                    nextIns = nextOpcode[0]
+                    
+                    # GRD instruction
+                    if(nextIns == "0"):
+
+                        nextSource = nextInstructionElements[1]
+
+                        if(currentDestiny == nextSource):
+
+                            result.insert(i + 1, stall)
+                            result.insert(i + 2, stall)
+                    
+                    # CRG instruction
+                    else:
+
+                        nextSource = nextInstructionElements[4]
+
+                        if(currentDestiny == nextSource):
+
+                            result.insert(i + 1, stall)
+                            result.insert(i + 2, stall)
+
+                # data instruction
+                else:
+
+                    nextSource2 = nextInstructionElements[2]
+                    nextSource3 = nextInstructionElements[3]
+
+                    if(currentDestiny == nextSource2 or currentDestiny == nextSource3):
+
+                        result.insert(i + 1, stall)
+                        result.insert(i + 2, stall)
+
+        i += 1
+
+    return result[:-1]
+    
+
+
+
+
+
+
+
+
+
+
+# case 3: dependencies between instructions with 2 instructions among them
+# instructionElements => string list
+# typeDictionary => string dictionary
+# opcodeDictionary => string dictionary
+def stallInsertionCase3(instructionElements, typeDictionary, opcodeDictionary):
+
+    result = instructionElements.copy()
+
+    # this insertion avoids index out of range error
+    result.append("*")
+
+    stall = ['SUM', 'R0', 'R0', 'R0', "********************"]
+
+    i = 0
+
+    # loop to iterate each instruction
+    for j in result:
+
+        if(result[i + 3] == "*"):
+            break
+
+        currentInstruction = j[0]
+
+        currentInstructionType = typeDictionary[currentInstruction]
+
+        currentDestiny = j[1]
+
+        if(currentDestiny != "R0"):
+
+            nextInstructionElements = result[i + 3]
+
+            nextInstruction = nextInstructionElements[0]
+
+            nextInstructionType = typeDictionary[nextInstruction]           
+
+            # control instruction
+            #if(currentInstructionType == "00"):
+
+                #result.insert(i + 1, stall)
+                #result.insert(i + 2, stall)
+                #result.insert(i + 3, stall)
+                #result.insert(i + 4, stall)
+                
+            # memory instruction
+            if(currentInstructionType == "01" and currentInstruction == "CRG"):            
+                
+                # control instruction
+                if(nextInstructionType == "00"):
+
+                    nextOpcode = opcodeDictionary[nextInstruction]
+
+                    nextBranch = nextOpcode[0]
+
+                    # conditional instruction
+                    if(nextBranch == "1"):
+
+                        nextSource1 = nextInstructionElements[1]
+                        nextSource2 = nextInstructionElements[2]
+
+                        if(currentDestiny == nextSource1 or currentDestiny == nextSource2):
+
+                            result.insert(i + 1, stall)
+                
+                # data instruction
+                elif(nextInstructionType == "10"):
+
+                    nextSource2 = nextInstructionElements[2]
+                    nextSource3 = nextInstructionElements[3]
+
+                    if(currentDestiny == nextSource2 or currentDestiny == nextSource3):
+
+                        result.insert(i + 1, stall)
+
+            # data instruction
+            else:
+                
+                # control instruction
+                if(nextInstructionType == "00"):
+
+                    nextOpcode = opcodeDictionary[nextInstruction]
+
+                    nextBranch = nextOpcode[0]
+
+                    # conditional instruction
+                    if(nextBranch == "1"):
+
+                        nextSource1 = nextInstructionElements[1]
+                        nextSource2 = nextInstructionElements[2]
+
+                        if(currentDestiny == nextSource1 or currentDestiny == nextSource2):
+
+                            result.insert(i + 1, stall)
+
+                # memory instruction
+                elif(nextInstructionType == "01"):
+
+                    nextOpcode = opcodeDictionary[nextInstruction]
+
+                    nextIns = nextOpcode[0]
+                    
+                    # GRD instruction
+                    if(nextIns == "0"):
+
+                        nextSource = nextInstructionElements[1]
+
+                        if(currentDestiny == nextSource):
+
+                            result.insert(i + 1, stall)
+                    
+                    # CRG instruction
+                    else:
+
+                        nextSource = nextInstructionElements[4]
+
+                        if(currentDestiny == nextSource):
+
+                            result.insert(i + 1, stall)
+
+                # data instruction
+                else:
+
+                    nextSource2 = nextInstructionElements[2]
+                    nextSource3 = nextInstructionElements[3]
+
+                    if(currentDestiny == nextSource2 or currentDestiny == nextSource3):
+
+                        result.insert(i + 1, stall)
+
+        i += 1
+
+    return result[:-1]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# instructionElements => string list
+# typeDictionary => string dictionary
+# opcodeDictionary => string dictionary
+def riskControlUnit(instructionElements, typeDictionary, opcodeDictionary):
+
+    """
+    ['SUM', 'R1', 'R2', 'R3']
+    ['RES', 'R4', 'R1', 'R2']
+
+    ['SUM', 'R1', 'R2', 'R3']
+    ['RES', 'R4', 'R2', 'R1']
+
+    -------------------------
+    ['MUL', 'R1', 'R2', 'R3']
+    ['DIV', 'R1', 'R2', 'R3']
+
+
+
+    ['CRG', 'R1', '2', '4', 'R2']
+    ['GDR', 'R2', '1', '4', 'R1']
+    
+
+
+
+
+    ['SCI', 'R1', 'R2', 'elif']
+    ['SCD', 'R1', 'R2', 'ciclo']
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ['SCI', 'R1', 'R2', 'elif']
+    ['SCD', 'R1', 'R2', 'ciclo']
+    ['SI', 'for_loop']
+    ['SIF', 'check']
+
+    ['GDR', 'R1', '1', '4', 'R3']
+    ['CRG', 'R1', '2', '4', 'R3']
+
+    ['SUM', 'R1', 'R2', 'R3']
+    ['RES', 'R1', 'R2', 'R3']
+    ['MUL', 'R1', 'R2', 'R3']
+    ['DIV', 'R1', 'R2', 'R3']
+    ['RSD', 'R1', 'R2', 'R3']
+
+    ['SUMI', 'R1', 'R2', '1']
+    ['RESI', 'R1', 'R2', '-2']
+    ['MULI', 'R1', 'R2', '3']
+    ['DIVI', 'R1', 'R2', '-4']
+    ['RSDI', 'R1', 'R2', '5']
+
+
+
+
+
+
+
+
+
+
+
+
+
+# case 2: dependencies between instructions with 1 instruction among them
+
+# case 3: dependencies between instructions with 2 instructions among them
+
+
+
+
+
+
+
+    """
+
+    result = instructionElements.copy()
+
+    # this insertion avoids index out of range error
+    result.append("*")
+
+    stall = ['SUM', 'R0', 'R0', 'R0', "********************"]
+
+    i = 0
+
+    # loop to iterate each instruction
+    for j in result:       
+
+        if(result[i + 1] == "*"):
+            break
+
+        currentInstruction = j[0]
+
+        currentInstructionType = typeDictionary[currentInstruction]
+
+        currentDestiny = j[1]
+
+        if(currentDestiny != "R0"): 
+
+            # case 1: dependencies between instructions with 0 instructions among them
+
+            nextInstructionElements = result[i + 1]
+
+            nextInstruction = nextInstructionElements[0]
+
+            nextInstructionType = typeDictionary[nextInstruction]           
+
+            # control instruction
+            if(currentInstructionType == "00"):
+
+                result.insert(i + 1, stall)
+                result.insert(i + 2, stall)
+                result.insert(i + 3, stall)
+                result.insert(i + 4, stall)
+                
+                # control instruction
+                #if(nextInstructionType == "00"):
+                    #pass
+
+                # memory instruction
+                #elif(nextInstructionType == "01"):
+                    #pass
+
+                # data instruction
+                #else:
+                    #pass
+
+            # memory instruction
+            elif(currentInstructionType == "01" and currentInstruction == "CRG"):            
+
+                # control instruction
+                if(nextInstructionType == "00"):
+
+                    nextOpcode = opcodeDictionary[nextInstruction]
+
+                    nextBranch = nextOpcode[0]
+
+                    # conditional instruction
+                    if(nextBranch == "1"):
+
+                        nextSource1 = nextInstructionElements[1]
+                        nextSource2 = nextInstructionElements[2]
+
+                        if(currentDestiny == nextSource1 or currentDestiny == nextSource2):
+
+                            result.insert(i + 1, stall)
+                            result.insert(i + 2, stall)
+                            result.insert(i + 3, stall)
+
+                # data instruction
+                elif(nextInstructionType == "10"):
+
+                    nextSource2 = nextInstructionElements[2]
+                    nextSource3 = nextInstructionElements[3]
+
+                    if(currentDestiny == nextSource2 or currentDestiny == nextSource3):
+
+                        result.insert(i + 1, stall)
+                        result.insert(i + 2, stall)
+                        result.insert(i + 3, stall)
+
+            # data instruction
+            else:
+                
+                # control instruction
+                if(nextInstructionType == "00"):
+
+                    nextOpcode = opcodeDictionary[nextInstruction]
+
+                    nextBranch = nextOpcode[0]
+
+                    # conditional instruction
+                    if(nextBranch == "1"):
+
+                        nextSource1 = nextInstructionElements[1]
+                        nextSource2 = nextInstructionElements[2]
+
+                        if(currentDestiny == nextSource1 or currentDestiny == nextSource2):
+
+                            result.insert(i + 1, stall)
+                            result.insert(i + 2, stall)
+                            result.insert(i + 3, stall)
+                    
+                # memory instruction
+                elif(nextInstructionType == "01"):
+
+                    nextOpcode = opcodeDictionary[nextInstruction]
+
+                    nextIns = nextOpcode[0]
+                    
+                    # GRD instruction
+                    if(nextIns == "0"):
+
+                        nextSource = nextInstructionElements[1]
+
+                        if(currentDestiny == nextSource):
+
+                            result.insert(i + 1, stall)
+                            result.insert(i + 2, stall)
+                            result.insert(i + 3, stall)
+                    
+                    # CRG instruction
+                    else:
+
+                        nextSource = nextInstructionElements[4]
+
+                        if(currentDestiny == nextSource):
+
+                            result.insert(i + 1, stall)
+                            result.insert(i + 2, stall)
+                            result.insert(i + 3, stall)
+
+                # data instruction
+                else:
+
+                    nextSource2 = nextInstructionElements[2]
+                    nextSource3 = nextInstructionElements[3]
+
+                    if(currentDestiny == nextSource2 or currentDestiny == nextSource3):
+
+                        result.insert(i + 1, stall)
+                        result.insert(i + 2, stall)
+                        result.insert(i + 3, stall)
+
+        i += 1
+
+    return result[:-1]
+
+# instructionElements => string list
+# typeDictionary => string dictionary
+# opcodeDictionary => string dictionary
+def riskControlUnitCopy(instructionElements, typeDictionary, opcodeDictionary):
+
+    case1 = stallInsertionCase1(instructionElements, typeDictionary, opcodeDictionary)
+
+    case2 = stallInsertionCase2(case1, typeDictionary, opcodeDictionary)
+
+    case3 = stallInsertionCase3(case2, typeDictionary, opcodeDictionary)
+
+    return case3
+
+
+
+
+
+
+
+
+
+
+
+
 
 # type dictionary definition
 typeDictionary = {
@@ -178,20 +897,6 @@ labelDictionary = {}
 codeFile = open('code.txt', 'r')
 codeLines = codeFile.readlines()
 
-
-
-
-
-
-# open binaryCode.txt file for writing
-binaryCodeFile = open('binaryCode.txt', 'w')
-
-
-
-
-
-
-
 # variable to know the number of the current line
 pointerLine = 0
 
@@ -206,7 +911,9 @@ for line in codeLines:
     # current line contains a label
     if(aux == ":"):
 
-        labelDictionary[line[:-2]] = pointerLine
+        pointerLine -= 1
+
+        labelDictionary[line[:-2]] = pointerLine + 1
         
 codeFile.close()
 
@@ -214,13 +921,17 @@ codeFile.close()
 codeFile = open('code.txt', 'r')
 codeLines = codeFile.readlines()
 
+# open binaryCode.txt file for writing
+binaryCodeFile = open('binaryCode.txt', 'w')
+
 # variable to know the number of the current line
 pointerLine = 0
 
+# variable to store all the instruction elements
+instructionElements = []
+
 # loop to iterate the code file line by line
 for line in codeLines:
-
-    pointerLine += 1
     
     # variable to know if the current instruction is a memory one (type 01)
     memoryFlag = 0   
@@ -233,6 +944,8 @@ for line in codeLines:
 
     # current line contains an instruction
     if(aux != ":"):
+
+        pointerLine += 1
 
         # loop to iterate the current line char by char
         for char in line:
@@ -261,16 +974,13 @@ for line in codeLines:
         if(memoryFlag == 1):
             elements.pop()
 
-        print("elements = ", elements)   
+        print("elements = ", elements)
+
+        instructionElements.append(elements)
 
         instructionType = typeDictionary[elements[0]]
         opcode = opcodeDictionary[elements[0]]
 
-        #register1 = ""
-        #register2 = ""
-        #register3 = ""
-        #direction = ""
-        #immediate = ""
         filling = "0000000000000"
 
         # control instruction
@@ -361,22 +1071,69 @@ for line in codeLines:
 
 
 
+"""
+for i in instructionElements:
+    print(i)
+print(" ")
+"""
 
 
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
+instructionElements = riskControlUnitCopy(instructionElements, typeDictionary, opcodeDictionary)
 
-    
-    
+for i in instructionElements:
+    print(i)
+print(" ")
 
 
+
+
+
+
+
+
+
+
+"""
+lista = [1,2,3,4,5]
+
+lista1 = lista.copy()
+
+lista1.insert(2, "J")
+
+print(" ")
+print(lista)
+print(lista1)
+"""
+
+# closing binaryCodeFile and codeFile files
 binaryCodeFile.close()
 codeFile.close()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
