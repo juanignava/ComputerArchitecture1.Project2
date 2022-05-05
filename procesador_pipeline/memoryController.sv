@@ -12,16 +12,16 @@ module memoryController (input logic clk, we, switchStart,
 		begin
 		
 			// Reading data from Rom.
-			if (address >= 'd735 && address < 'd33135)
+			if (address >= 'd400 && address < 'd8500)
 				begin
-					mapAddress = address - 'd735;
+					mapAddress = address - 'd400;
 					rd = romData;
 				end
 			
-			// Reading from Ram.
-			else if (address >= 'd33135 && address < 'd65536)
+			// Reading or writing from Ram.
+			else if (address >= 'd8500 && address < 'd138100)
 				begin
-					mapAddress = address - 'd33135;
+					mapAddress = address - 'd8500;
 					rd = ramData;
 				end
 				

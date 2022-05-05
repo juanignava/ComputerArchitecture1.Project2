@@ -1,0 +1,133 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/altera/14.1/procesador_pipeline/simulation/modelsim
+vdmem_ram
+Z1 DXx6 sv_std 3 std 0 22 <EOTafDcUY:cQeO^ICn]m3
+Z2 !s110 1651783378
+!i10b 1
+!s100 aP9e718j;1?]FCQJi=4:S3
+I0n9zfU:hO]2ZoHcjW7Sjj0
+Z3 V`JN@9S9cnhjKRR_L]QIcM3
+!s105 dmem_ram_sv_unit
+S1
+R0
+w1651783271
+8C:/altera/14.1/procesador_pipeline/dmem_ram.sv
+FC:/altera/14.1/procesador_pipeline/dmem_ram.sv
+L0 1
+Z4 OV;L;10.3c;59
+r1
+!s85 0
+31
+!s108 1651783378.385000
+!s107 C:/altera/14.1/procesador_pipeline/dmem_ram.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/altera/14.1/procesador_pipeline|C:/altera/14.1/procesador_pipeline/dmem_ram.sv|
+!i113 1
+Z5 o-sv -work work
+Z6 !s92 -sv -work work +incdir+C:/altera/14.1/procesador_pipeline
+vdmem_rom
+R1
+R2
+!i10b 1
+!s100 ;H4;CVL:IPbOZk[9a]>AK3
+IoHoE[:m@3KeC6:KGgnTT11
+R3
+!s105 dmem_rom_sv_unit
+S1
+R0
+w1651782932
+8C:/altera/14.1/procesador_pipeline/dmem_rom.sv
+FC:/altera/14.1/procesador_pipeline/dmem_rom.sv
+L0 1
+R4
+r1
+!s85 0
+31
+!s108 1651783378.606000
+!s107 C:/altera/14.1/procesador_pipeline/dmem_rom.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/altera/14.1/procesador_pipeline|C:/altera/14.1/procesador_pipeline/dmem_rom.sv|
+!i113 1
+R5
+R6
+vmemoryAccess
+R1
+R2
+!i10b 1
+!s100 bM1khVB[Z^CLh?=Y1Q09g1
+I@V]O:;@>jJ>P?onL:o>Jf3
+R3
+!s105 memoryAccess_sv_unit
+S1
+R0
+w1651706302
+8C:/altera/14.1/procesador_pipeline/memoryAccess.sv
+FC:/altera/14.1/procesador_pipeline/memoryAccess.sv
+L0 1
+R4
+r1
+!s85 0
+31
+!s108 1651783378.488000
+!s107 C:/altera/14.1/procesador_pipeline/memoryAccess.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/altera/14.1/procesador_pipeline|C:/altera/14.1/procesador_pipeline/memoryAccess.sv|
+!i113 1
+R5
+R6
+nmemory@access
+vmemoryAccess_tb
+R1
+R2
+!i10b 1
+!s100 SVnEF476M3WKl^Un<nJFN1
+IIizEdSHD1gzP?3na^eW@;3
+R3
+!s105 memoryAccess_tb_sv_unit
+S1
+R0
+w1651783361
+8C:/altera/14.1/procesador_pipeline/memoryAccess_tb.sv
+FC:/altera/14.1/procesador_pipeline/memoryAccess_tb.sv
+L0 1
+R4
+r1
+!s85 0
+31
+!s108 1651783378.532000
+!s107 C:/altera/14.1/procesador_pipeline/memoryAccess_tb.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/altera/14.1/procesador_pipeline|C:/altera/14.1/procesador_pipeline/memoryAccess_tb.sv|
+!i113 1
+R5
+R6
+nmemory@access_tb
+vmemoryController
+R1
+R2
+!i10b 1
+!s100 MXM^RQbJ5gD;];2@PGF^H2
+IzJj=KkbNcX;UgezHf@<?C2
+R3
+!s105 memoryController_sv_unit
+S1
+R0
+w1651782844
+8C:/altera/14.1/procesador_pipeline/memoryController.sv
+FC:/altera/14.1/procesador_pipeline/memoryController.sv
+L0 1
+R4
+r1
+!s85 0
+31
+!s108 1651783378.445000
+!s107 C:/altera/14.1/procesador_pipeline/memoryController.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/altera/14.1/procesador_pipeline|C:/altera/14.1/procesador_pipeline/memoryController.sv|
+!i113 1
+R5
+R6
+nmemory@controller

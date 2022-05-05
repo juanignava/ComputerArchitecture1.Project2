@@ -1,5 +1,5 @@
 Analysis & Elaboration report for procesador_pipeline
-Wed May 04 17:19:11 2022
+Thu May 05 14:42:52 2022
 Quartus II 64-Bit Version 14.1.0 Build 186 12/03/2014 SJ Web Edition
 
 
@@ -38,7 +38,7 @@ agreement for further details.
 +----------------------------------------------------------------------------+
 ; Analysis & Elaboration Summary                                             ;
 +-------------------------------+--------------------------------------------+
-; Analysis & Elaboration Status ; Successful - Wed May 04 17:19:11 2022      ;
+; Analysis & Elaboration Status ; Successful - Thu May 05 14:42:52 2022      ;
 ; Quartus II 64-Bit Version     ; 14.1.0 Build 186 12/03/2014 SJ Web Edition ;
 ; Revision Name                 ; procesador_pipeline                        ;
 ; Top-level Entity Name         ; memoryAccess_tb                            ;
@@ -173,7 +173,7 @@ agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Elaboration
     Info: Version 14.1.0 Build 186 12/03/2014 SJ Web Edition
-    Info: Processing started: Wed May 04 17:19:05 2022
+    Info: Processing started: Thu May 05 14:42:42 2022
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off procesador_pipeline -c procesador_pipeline --analysis_and_elaboration
 Info (20030): Parallel compilation is enabled and will use 12 of the 12 processors detected
 Info (12021): Found 1 design units, including 1 entities, in source file imem.sv
@@ -189,23 +189,23 @@ Info (12021): Found 1 design units, including 1 entities, in source file dmem_ro
 Info (12021): Found 1 design units, including 1 entities, in source file memoryaccess_tb.sv
     Info (12023): Found entity 1: memoryAccess_tb
 Info (12127): Elaborating entity "memoryAccess_tb" for the top level hierarchy
-Warning (10755): Verilog HDL warning at memoryAccess_tb.sv(41): assignments to clk create a combinational loop
+Warning (10755): Verilog HDL warning at memoryAccess_tb.sv(54): assignments to clk create a combinational loop
 Info (12128): Elaborating entity "memoryAccess" for hierarchy "memoryAccess:memory"
 Info (12128): Elaborating entity "memoryController" for hierarchy "memoryAccess:memory|memoryController:memoryControllerUnit"
 Info (12128): Elaborating entity "dmem_ram" for hierarchy "memoryAccess:memory|memoryController:memoryControllerUnit|dmem_ram:ram"
 Warning (10230): Verilog HDL assignment warning at dmem_ram.sv(11): truncated value with size 63 to match size of target (32)
 Warning (10175): Verilog HDL warning at dmem_ram.sv(23): ignoring unsupported system task
 Info (12128): Elaborating entity "dmem_rom" for hierarchy "memoryAccess:memory|memoryController:memoryControllerUnit|dmem_rom:rom"
-Warning (10850): Verilog HDL warning at dmem_rom.sv(9): number of words (4) in memory file does not match the number of elements in the address range [0:32399]
+Warning (10850): Verilog HDL warning at dmem_rom.sv(9): number of words (4) in memory file does not match the number of elements in the address range [0:8099]
 Warning (10030): Net "dmem_ROM.data_a" at dmem_rom.sv(4) has no driver or initial value, using a default initial value '0'
 Warning (10030): Net "dmem_ROM.waddr_a" at dmem_rom.sv(4) has no driver or initial value, using a default initial value '0'
 Warning (10030): Net "dmem_ROM.we_a" at dmem_rom.sv(4) has no driver or initial value, using a default initial value '0'
 Warning (12011): Net is missing source, defaulting to GND
     Warning (12110): Net "clk" is missing source, defaulting to GND
 Info: Quartus II 64-Bit Analysis & Elaboration was successful. 0 errors, 9 warnings
-    Info: Peak virtual memory: 4782 megabytes
-    Info: Processing ended: Wed May 04 17:19:11 2022
-    Info: Elapsed time: 00:00:06
-    Info: Total CPU time (on all processors): 00:00:14
+    Info: Peak virtual memory: 5409 megabytes
+    Info: Processing ended: Thu May 05 14:42:52 2022
+    Info: Elapsed time: 00:00:10
+    Info: Total CPU time (on all processors): 00:00:18
 
 

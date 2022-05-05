@@ -1,0 +1,92 @@
+# Reading C:/altera/14.1/modelsim_ase/tcl/vsim/pref.tcl
+# do procesador_pipeline_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim PE vmap 10.3c Lib Mapping Utility 2014.09 Sep 20 2014
+# vmap -modelsim_quiet work rtl_work 
+# Copying C:/altera/14.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# ** Warning: Copied C:/altera/14.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini.
+#          Updated modelsim.ini.
+# 
+# vlog -sv -work work +incdir+C:/altera/14.1/procesador_pipeline {C:/altera/14.1/procesador_pipeline/dmem_ram.sv}
+# Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
+# Start time: 14:42:58 on May 05,2022
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/altera/14.1/procesador_pipeline" C:/altera/14.1/procesador_pipeline/dmem_ram.sv 
+# -- Compiling module dmem_ram
+# 
+# Top level modules:
+# 	dmem_ram
+# End time: 14:42:58 on May 05,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/altera/14.1/procesador_pipeline {C:/altera/14.1/procesador_pipeline/memoryController.sv}
+# Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
+# Start time: 14:42:58 on May 05,2022
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/altera/14.1/procesador_pipeline" C:/altera/14.1/procesador_pipeline/memoryController.sv 
+# -- Compiling module memoryController
+# 
+# Top level modules:
+# 	memoryController
+# End time: 14:42:58 on May 05,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/altera/14.1/procesador_pipeline {C:/altera/14.1/procesador_pipeline/memoryAccess.sv}
+# Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
+# Start time: 14:42:58 on May 05,2022
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/altera/14.1/procesador_pipeline" C:/altera/14.1/procesador_pipeline/memoryAccess.sv 
+# -- Compiling module memoryAccess
+# 
+# Top level modules:
+# 	memoryAccess
+# End time: 14:42:58 on May 05,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/altera/14.1/procesador_pipeline {C:/altera/14.1/procesador_pipeline/memoryAccess_tb.sv}
+# Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
+# Start time: 14:42:58 on May 05,2022
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/altera/14.1/procesador_pipeline" C:/altera/14.1/procesador_pipeline/memoryAccess_tb.sv 
+# -- Compiling module memoryAccess_tb
+# 
+# Top level modules:
+# 	memoryAccess_tb
+# End time: 14:42:58 on May 05,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/altera/14.1/procesador_pipeline {C:/altera/14.1/procesador_pipeline/dmem_rom.sv}
+# Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
+# Start time: 14:42:58 on May 05,2022
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/altera/14.1/procesador_pipeline" C:/altera/14.1/procesador_pipeline/dmem_rom.sv 
+# -- Compiling module dmem_rom
+# 
+# Top level modules:
+# 	dmem_rom
+# End time: 14:42:58 on May 05,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+vsim work.memoryAccess_tb
+# vsim -gui "+altera" -l msim_transcript -do "procesador_pipeline_run_msim_rtl_verilog.do" 
+# Start time: 14:43:11 on May 05,2022
+# Loading sv_std.std
+# Loading work.memoryAccess_tb
+# Loading work.memoryAccess
+# Loading work.memoryController
+# Loading work.dmem_ram
+# Loading work.dmem_rom
+add wave -position end  sim:/memoryAccess_tb/clk
+add wave -position end  sim:/memoryAccess_tb/memWriteM
+add wave -position end  sim:/memoryAccess_tb/switchStart
+add wave -position end  sim:/memoryAccess_tb/A
+add wave -position end  sim:/memoryAccess_tb/wd
+add wave -position end  sim:/memoryAccess_tb/rd
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+# 
+#           File in use by: Jose David  Hostname: DESKTOP-EFFU72K  ProcessID: 9396
+# 
+#           Attempting to use alternate WLF file "./wlfts5gev7".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+# 
+#           Using alternate file: ./wlfts5gev7
+# 
+run
+# End time: 14:49:12 on May 05,2022, Elapsed time: 0:06:01
+# Errors: 0, Warnings: 2
