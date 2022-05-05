@@ -1,0 +1,46 @@
+module memoryAccess_tb ();
+
+	logic clk, memWriteM, switchStart;
+	logic [31:0] A, wd;
+	logic [31:0] rd,
+	logic  GPIO, GPIOFlag;
+
+	memoryAccess memory (clk, memWriteM, switchStart, A, wd, rd, GPIO, GPIOFlag);
+	
+	int i, image;
+	initial begin
+	
+		clk = 0; switchStart = 0; #3;
+		
+		switchStart = 1; #10;
+		
+		memWriteM = 1; A = 33135; wd = 33; #10
+		
+		memWriteM = 0; #10
+		
+		memWriteM = 1; A = 65536; wd = 45; #10
+		
+		memWriteM = 0; #10
+		
+		i = 'd0;
+		// synthesis translate_off
+		image = $fopen("imagen.txt", "w");
+		while (i < 'd32400)
+			begin
+				@(posedge clk);
+				if (GPIOFlag)
+					begin
+					  	$fwrite(image, "%b\n", GPIO);
+						i = i + 1;
+					end
+			end
+		$fclose(image);
+		$finish;
+		// synthesis translate_on
+	end
+	
+	always begin
+		clk=!clk; #10;
+	end
+	
+endmodule 
