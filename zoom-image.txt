@@ -30,215 +30,127 @@ por lo que  hay que quitarle la funcionalidad a regristros de función y de stac
 
 # Seccion del código donde se guardan los valores iniciales
 _valores-iniciales:
-SUMI R6, R0, 33135  # se guarda en R6 el valor de la dirección inicial de la segunda imagen (con zoom)
-
-# se guarda en R2 el valor de la dirección inicial de análisis de la sección de la imagen sin zoom
-# R2 = (seccion // 4) * 360 * 90 + (seccion % 4) * 90
-SUMI R2, R0, 3      # R2 es el contador para la primera imagen
-                    # 3 corresponde a la sección de la imagen a la que se le hará zoom
-DIVI R2, R2, 4      # (seccion // 4)
-MULTI R3, R2, 32400 # (seccion // 4) * 360 * 90
-SUMI R2, R0, 3     
-RSDI R2, R2, 4      # (seccion % 4) * 90
-MULTI R2, R2, 90
-SUM R2, R2, R3      # (seccion // 4) * 360 * 90 + (seccion % 4) * 90
+SUMI R6, R0, 33135
+SUMI R2, R0, 3
+DIVI R2, R2, 4
+MULI R3, R2, 32400
+SUMI R2, R0, 3
+RSDI R2, R2, 4
+MULI R2, R2, 90
+SUM R2, R2, R3
 RESI R3, R2, 4
 DIVI R2, R2, 4
 SUM R2, R2, R3
 SUMI R2, R2, 735
-
-SUM R7, R0, R0      # R7 es el contador para el primer ciclo
-
-
-# Sección del código donde se añaden los pixeles ya conocidos
-
+SUM R7, R0, R0
 _pixeles-conocidos:
-
-DIVI R3, R7, 360    # R3 = numFila
-RSDI R4, R7, 360    # R4 = numColumna
-
-RSDI R3, R3, 4      # numFila % 4
-RSDI R4, R4, 4      # numColumna % 4
-
-# Comprueba que las filas y columnas sean multiplo de 4
-SCD R3, R0, pc-next
-SCD R4, R0, pc-next
-
-DIVI R5, R7, 4      # R5 = contador // 4
-SUM R5, R5, R2      # R5 = dir_inicial + contador // 4
-CRG R5, 0, 0(R5)    # R5 = valor contenido en los primeros 8 bits de la direccion marcada en R5
+DIVI R3, R7, 360
+RSDI R4, R7, 360
+RSDI R3, R3, 4
+RSDI R4, R4, 4
+SCD R3, R0, _pc-next
+SCD R4, R0, _pc-next
+DIVI R5, R7, 4
+SUM R5, R5, R2
+CRG R5, 0, 0(R5)
 DIVI R8, R7, 4
-SUM R8, R6, R8      # R8 = direccion donde se debe guardar el dato obtenido de R5
-GRD R5, 0, 0(R8)    # se guarda el valor de R5 para la segunda imagen
-
+SUM R8, R6, R8
+GDR R5, 0, 0(R8)
 _pc-next:
 SUMI R7, R7, 1
-SUMI R8, R0, 32400              # R8 guarda el valor de 360^2 (en este caso dividido por 4 ya que cada direccion tiene 4 datos)
+SUMI R8, R0, 32400
 DIVI R9, R7, 4
-SCD R9, R8, _pixeles-conocidos  # Condición del while
-
-# Sección del código donde se completan las columnas
-
-SUM R7, R0, R0      # R7 es el contador para el segundo ciclo
-
+SCD R9, R8, _pixeles-conocidos
+SUM R7, R0, R0
 _completar-columnas:
-
-DIVI R3, R7, 360    # R3 = numFila
-RSDI R4, R7, 360    # R4 = numColumna
-
-RSDI R3, R3, 4      # numFila % 4
-RSDI R4, R4, 4      # numColumna % 4
-
-# Comprueba que las columnas sean multiplo de 4, pero las filas no
-SCI R3, R0, cc-next
-SCD R4, R0, cc-next
-
-# calculo de R8 = ref1 = contador - (numFila % 4 * 360)
-#            R9 = ref2 = ref1 + 360 * 4
-MULTI R8, R3, 360
-SUB R8, R7, R8
+DIVI R3, R7, 360
+RSDI R4, R7, 360
+RSDI R3, R3, 4
+RSDI R4, R4, 4
+SCI R3, R0, _cc-next
+SCD R4, R0, _cc-next
+MULI R8, R3, 360
+RES R8, R7, R8
 SUMI R9, R8, 1440
-
-# calculo de sum1 = ((ref2 - contador) / (ref2 - ref1)) * lista_zoom[ref1]
-#            sum2 = ((contador - ref1) / (ref2 - ref1)) * lista_zoom[ref2]
-
-DIVI R10, R8, 4     # R10 = lista_zoom[ref1]
+DIVI R10, R8, 4
 CRG R10, 0, 0(R10)
-
-DIVI R11, R9, 4     # R11 = lista_zoom[ref2]
+DIVI R11, R9, 4
 CRG R11, 0, 0(R11)
-
-RES R12, R9, R7    # R12 = ref2 - contador
-RES R13, R7, R8    # R13 = contador - ref1
-RES R14, R9, R8    # R14 = ref2 - ref1
-
-MUL R10, R10, R12  # (ref2 - contador)*lista_zoom[ref1]
-MUL R11, R11, R13  # (contador - ref1)*lista_zoom[ref2]
-
-SUM R11, R11, R10   # (ref2 - contador)*lista_zoom[ref1] + (contador - ref1)*lista_zoom[ref2]
-DIVI R11, R11, R14  # (ref2 - contador)*lista_zoom[ref1] + (contador - ref1)*lista_zoom[ref2] // (ref2 - ref1)
-
+RES R12, R9, R7
+RES R13, R7, R8
+RES R14, R9, R8
+MUL R10, R10, R12
+MUL R11, R11, R13
+SUM R11, R11, R10
+DIV R11, R11, R14
 DIVI R8, R7, 4
 SUM R8, R6, R8
-GRD R11, 0, 0(R8)   # se guarda el valor obtenido en el calcuulo en la direccion respectiva de memoria
-
+GDR R11, 0, 0(R8)
 _cc-next:
 SUMI R7, R7, 1
-SUMI R8, R0, 32130              # R8 guarda el valor de 360^2 - 3 * 360
+SUMI R8, R0, 32130
 DIVI R9, R7, 4
-SCD R9, R8, _completar-columnas  # Condición del while
-
-
-
-SUM R7, R0, R0      # R7 es el contador para el segundo ciclo
-
-
+SCD R9, R8, _completar-columnas
+SUM R7, R0, R0
 _completar-valores:
-
-DIVI R3, R7, 360    # R3 = numFila
-RSDI R4, R7, 360    # R4 = numColumna
-
-RSDI R3, R3, 4      # numFila % 4
-RSDI R4, R4, 4      # numColumna % 4
-
-# Comprueba que las columnas no sean multiplo de 4
-SCI R4, R0, cv-next
-
-# calculo de R8 = ref1 = contador - (numColumna % 4)
-#            R9 = ref2 = ref1 + 360 * 4
-SUB R8, R7, R4
+DIVI R3, R7, 360
+RSDI R4, R7, 360
+RSDI R3, R3, 4
+RSDI R4, R4, 4
+SCI R4, R0, _cv-next
+RES R8, R7, R4
 SUMI R9, R8, 4
-
-# calculo de sum1 = ((ref2 - contador) / (ref2 - ref1)) * lista_zoom[ref1]
-#            sum2 = ((contador - ref1) / (ref2 - ref1)) * lista_zoom[ref2]
-
 _cv-load:
-
 SUMI R1, R0, 3
 SCI R4, R1, _cv-lcase3
-
 SUMI R1, R0, 2
 SCI R4, R1, _cv-lcase2
-
-# caso en el que se este tomando un valor de memoria que este entre los bits 8 al 15
 _cv-lcase1:
-
-DIVI R10, R8, 4     # R10 = lista_zoom[ref1]
+DIVI R10, R8, 4
 CRG R10, 1, 0(R10)
-
-DIVI R11, R9, 4     # R11 = lista_zoom[ref2]
+DIVI R11, R9, 4
 CRG R11, 1, 0(R11)
-
 SI _cv-operation
-
-# caso en el que se este tomando un valor de memoria que este entre los bits 16 al 23
 _cv-lcase2:
-
-DIVI R10, R8, 4     # R10 = lista_zoom[ref1]
+DIVI R10, R8, 4
 CRG R10, 2, 0(R10)
-
-DIVI R11, R9, 4     # R11 = lista_zoom[ref2]
+DIVI R11, R9, 4
 CRG R11, 2, 0(R11)
-
 SI _cv-operation
-
-# caso en el que se este tomando un valor de memoria que este entre los bits 24 al 31
 _cv-lcase3:
-
-DIVI R10, R8, 4     # R10 = lista_zoom[ref1]
+DIVI R10, R8, 4
 CRG R10, 3, 0(R10)
-
-DIVI R11, R9, 4     # R11 = lista_zoom[ref2]
+DIVI R11, R9, 4
 CRG R11, 3, 0(R11)
-
-
 _cv-operation:
-
-RES R12, R9, R7    # R12 = ref2 - contador
-RES R13, R7, R8    # R13 = contador - ref1
-RES R14, R9, R8    # R14 = ref2 - ref1
-
-MUL R10, R10, R12  # (ref2 - contador)*lista_zoom[ref1]
-MUL R11, R11, R13  # (contador - ref1)*lista_zoom[ref2]
-
-SUM R11, R11, R10   # (ref2 - contador)*lista_zoom[ref1] + (contador - ref1)*lista_zoom[ref2]
-DIVI R11, R11, R14  # (ref2 - contador)*lista_zoom[ref1] + (contador - ref1)*lista_zoom[ref2] // (ref2 - ref1)
-
+RES R12, R9, R7
+RES R13, R7, R8
+RES R14, R9, R8
+MUL R10, R10, R12
+MUL R11, R11, R13
+SUM R11, R11, R10
+DIV R11, R11, R14
 _cv-assign:
-
 SUMI R1, R0, 3
 SCI R4, R1, _cv-acase3
-
 SUMI R1, R0, 2
 SCI R4, R1, _cv-acase2
-
 _cv-acase1:
-
 DIVI R8, R7, 4
 SUM R8, R6, R8
-GRD R11, 1, 0(R8)
-
+GDR R11, 1, 0(R8)
 SI _cv-next
-
 _cv-acase2:
-
 DIVI R8, R7, 4
 SUM R8, R6, R8
-GRD R11, 2, 0(R8)
-
+GDR R11, 2, 0(R8)
 SI _cv-next
-
 _cv-acase3:
-
 DIVI R8, R7, 4
 SUM R8, R6, R8
-GRD R11, 3, 0(R8)
-
+GDR R11, 3, 0(R8)
 _cv-next:
 SUMI R7, R7, 1
-SUMI R8, R0, 128510             # R8 guarda el valor de 360^2 - 3 * 360 -4
+SUMI R8, R0, 128510
 DIVI R9, R7, 4
-SCD R9, R8, _completar-valores  # Condición del while
-
-
-
+SCD R9, R8, _completar-valores

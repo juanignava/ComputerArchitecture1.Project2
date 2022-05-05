@@ -127,7 +127,7 @@ def stallInsertionCase1(instructionElements, typeDictionary, opcodeDictionary):
 
         if(len(j) > 1):
 
-            if(result[i + 1] == "*" or result[i + 2] == "*"):
+            if(result[i + 1] == "*"):
                 break
 
             currentInstruction = j[0]
@@ -227,8 +227,9 @@ def stallInsertionCase1(instructionElements, typeDictionary, opcodeDictionary):
                         if(nextIns == "0"):
 
                             nextSource = nextInstructionElements[1]
+                            nextDestiny = nextInstructionElements[4]
 
-                            if(currentDestiny == nextSource):
+                            if(currentDestiny == nextSource or currentDestiny == nextDestiny):
 
                                 result.insert(i + 1, stall)
                                 result.insert(i + 2, stall)
@@ -281,7 +282,7 @@ def stallInsertionCase2(instructionElements, typeDictionary, opcodeDictionary):
 
         if(len(j) > 1):
 
-            if(result[i + 2] == "*" or result[i + 3] == "*"):
+            if(result[i + 2] == "*"):
                 break
 
             currentInstruction = j[0]
@@ -370,8 +371,9 @@ def stallInsertionCase2(instructionElements, typeDictionary, opcodeDictionary):
                         if(nextIns == "0"):
 
                             nextSource = nextInstructionElements[1]
+                            nextDestiny = nextInstructionElements[4]
 
-                            if(currentDestiny == nextSource):
+                            if(currentDestiny == nextSource or currentDestiny == nextDestiny):
 
                                 result.insert(i + 1, stall)
                                 result.insert(i + 2, stall)
@@ -421,7 +423,7 @@ def stallInsertionCase3(instructionElements, typeDictionary, opcodeDictionary):
 
         if(len(j) > 1):
 
-            if(result[i + 3] == "*" or result[i + 4] == "*"):
+            if(result[i + 3] == "*"):
                 break
 
             currentInstruction = j[0]
@@ -507,8 +509,9 @@ def stallInsertionCase3(instructionElements, typeDictionary, opcodeDictionary):
                         if(nextIns == "0"):
 
                             nextSource = nextInstructionElements[1]
+                            nextDestiny = nextInstructionElements[4]
 
-                            if(currentDestiny == nextSource):
+                            if(currentDestiny == nextSource or currentDestiny == nextDestiny):
 
                                 result.insert(i + 1, stall)
                         
@@ -548,10 +551,10 @@ def riskControlUnit(instructionElements, typeDictionary, opcodeDictionary):
 
     return case3
 
-def getInstructionElements():
+def getInstructionElements(filename):
 
     # open code.txt file for reading
-    codeFile = open('code.txt', 'r')
+    codeFile = open(filename, 'r')
     codeLines = codeFile.readlines()
 
     # variable to store all the instruction elements
@@ -634,10 +637,10 @@ def getLabelDictionary(instructionElements):
     return labelDictionary, instructionElements
 
 # instructionElements => string list list
-def binaryInstructions(instructionElements, typeDictionary, opcodeDictionary, registerDictionary, labelDictionary):
+def binaryInstructions(filename, instructionElements, typeDictionary, opcodeDictionary, registerDictionary, labelDictionary):
 
     # open binaryCode.txt file for writing
-    binaryCodeFile = open('binaryCode.txt', 'w')
+    binaryCodeFile = open(filename, 'w')
 
     # variable to know the number of the current line
     pointerLine = 0
@@ -651,7 +654,8 @@ def binaryInstructions(instructionElements, typeDictionary, opcodeDictionary, re
         instructionType = typeDictionary[elements[0]]
         opcode = opcodeDictionary[elements[0]]
 
-        filling = "0000000000000"
+        fillingMemory = "000"
+        fillingData = "0000000000000"
 
         # control instruction
         if(instructionType == "00"):
@@ -687,22 +691,14 @@ def binaryInstructions(instructionElements, typeDictionary, opcodeDictionary, re
 
             register1 = registerDictionary[elements[1]]
 
-            section = bin(int(elements[2])).replace("0b", "")
-
-            sectionLength = len(section)
-
-            # sign extension for section value
-            for i in range(3 - sectionLength):
-                section = "0" + section
-
-            immediate = int(elements[3])
+            immediate = int(elements[2])
             immediate = signExtension(immediate, instructionType, opcode, pointerLine)
 
-            register2 = registerDictionary[elements[4]]       
+            register2 = registerDictionary[elements[3]]       
 
-            instruction = instructionType + opcode + section + register1 + register2 + immediate
+            instruction = instructionType + opcode + fillingMemory + register1 + register2 + immediate
 
-            print(instructionType + " " + opcode + " " + section + " " + register1 + " " + register2 + " " + immediate)
+            print(instructionType + " " + opcode + " " + fillingMemory + " " + register1 + " " + register2 + " " + immediate)
 
         # data instruction
         else:
@@ -729,9 +725,9 @@ def binaryInstructions(instructionElements, typeDictionary, opcodeDictionary, re
                 register2 = registerDictionary[elements[2]]
                 register3 = registerDictionary[elements[3]]
 
-                instruction = instructionType + opcode + filling + register1 + register2 + register3
+                instruction = instructionType + opcode + register1 + register2 + register3 + fillingData
 
-                print(instructionType + " " + opcode + " " + filling + " " + register1 + " " + register2 + " " + register3)
+                print(instructionType + " " + opcode + " " + register1 + " " + register2 + " " + register3 + " " + fillingData)
         
         print(" ")
 
@@ -799,14 +795,14 @@ registerDictionary = {
     "R11": "1011",
     "R12": "1100",
     "R13": "1101",
-    "RR": "1110",
-    "RS": "1111"
+    "R14": "1110",
+    "R15": "1111"
 }
 
-instructionElements = getInstructionElements()
+instructionElements = getInstructionElements('zoom-image.txt')
 
 instructionElements = riskControlUnit(instructionElements, typeDictionary, opcodeDictionary)
 
 labelDictionary, instructionElements = getLabelDictionary(instructionElements)
 
-binaryInstructions(instructionElements, typeDictionary, opcodeDictionary, registerDictionary, labelDictionary)
+binaryInstructions('binaryCode.txt', instructionElements, typeDictionary, opcodeDictionary, registerDictionary, labelDictionary)
