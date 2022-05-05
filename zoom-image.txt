@@ -12,7 +12,10 @@ presentado en alto nivel en el archivo zoom-image.py
 #   cada dirección es de 32 bits.
 
 # la memoria de datos va a tener 64 800 casillas
-#  de memoria desde la 735 hasta la 65 535
+#  de memoria desde la 735 hasta la 65 535, donde de la dirección
+#  735 hasta la 33134 de almacenan los datos de la imagen de entrada
+#  y de la dirección 33135 hasta la 65535 se almacenan de la imagen
+#  de salida (con el zoom aplicado)
 
 
 ################# NOTAS 

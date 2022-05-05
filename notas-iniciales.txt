@@ -80,3 +80,9 @@ Junto con los txt donde se tengan los diferentes apuntes como:
 	> pseudocódigo 
 - scripts de python que tratan las imágenes. 
 
+
+
+Para la simulación en modelsim recordasr que:
+
+vsim -L altera_mf_ver -L lpm_ver test
+
