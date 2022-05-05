@@ -1,7 +1,7 @@
 module dmem_rom (input logic [31:0] address,
 				output logic [31:0] rd);
 	
-	logic [31:0] dmem_ROM[0:32399];
+	logic [31:0] dmem_ROM[0:8099];
 	
 	initial
 	

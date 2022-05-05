@@ -1,7 +1,7 @@
 module imem (input logic [31:0] pc,
 				output logic [31:0] instruction);
 	
-	logic [31:0] imem_ROM[734:0];
+	logic [31:0] imem_ROM[399:0];
 	
 	initial
 	
