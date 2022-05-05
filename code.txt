@@ -1,3 +1,7 @@
+GDR R1, 2 (R2)
+CRG R1, 1 (R2)
+SUM R1, R2, R3
+RES R1, R2, R3
 SUM R1, R2, R3
 RSDI R1, R1, 5
 for_loop:
@@ -5,8 +9,8 @@ SCI R1, R2, elif
 SCD R1, R2, ciclo
 SI for_loop
 SIF check
-GDR R1, 1, 4 (R3)
-CRG R1, 2, 4 (R3)
+GDR R1, 2 (R2)
+CRG R1, 1 (R2)
 SUM R1, R2, R3
 RES R1, R2, R3
 ciclo:
@@ -25,3 +29,4 @@ while:
 MULI R1, R2, 3
 check:
 RSDI R1, R2, 5
+RSDI R2, R3, 5

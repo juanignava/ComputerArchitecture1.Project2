@@ -654,7 +654,8 @@ def binaryInstructions(filename, instructionElements, typeDictionary, opcodeDict
         instructionType = typeDictionary[elements[0]]
         opcode = opcodeDictionary[elements[0]]
 
-        filling = "0000000000000"
+        fillingMemory = "000"
+        fillingData = "0000000000000"
 
         # control instruction
         if(instructionType == "00"):
@@ -690,22 +691,14 @@ def binaryInstructions(filename, instructionElements, typeDictionary, opcodeDict
 
             register1 = registerDictionary[elements[1]]
 
-            section = bin(int(elements[2])).replace("0b", "")
-
-            sectionLength = len(section)
-
-            # sign extension for section value
-            for i in range(3 - sectionLength):
-                section = "0" + section
-
-            immediate = int(elements[3])
+            immediate = int(elements[2])
             immediate = signExtension(immediate, instructionType, opcode, pointerLine)
 
-            register2 = registerDictionary[elements[4]]       
+            register2 = registerDictionary[elements[3]]       
 
-            instruction = instructionType + opcode + section + register1 + register2 + immediate
+            instruction = instructionType + opcode + fillingMemory + register1 + register2 + immediate
 
-            print(instructionType + " " + opcode + " " + section + " " + register1 + " " + register2 + " " + immediate)
+            print(instructionType + " " + opcode + " " + fillingMemory + " " + register1 + " " + register2 + " " + immediate)
 
         # data instruction
         else:
@@ -732,9 +725,9 @@ def binaryInstructions(filename, instructionElements, typeDictionary, opcodeDict
                 register2 = registerDictionary[elements[2]]
                 register3 = registerDictionary[elements[3]]
 
-                instruction = instructionType + opcode + filling + register1 + register2 + register3
+                instruction = instructionType + opcode + register1 + register2 + register3 + fillingData
 
-                print(instructionType + " " + opcode + " " + filling + " " + register1 + " " + register2 + " " + register3)
+                print(instructionType + " " + opcode + " " + register1 + " " + register2 + " " + register3 + " " + fillingData)
         
         print(" ")
 
