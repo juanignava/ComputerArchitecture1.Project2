@@ -1,0 +1,175 @@
+# ACLARACIONES DE MEMORIA
+
+# Ahora la memoria va a estar seccionada de la siguiente forma:
+#  1. la memoria de instrucciones va a tener las direcciones desde la 0
+#       hasta la 399.
+#  2. la memoria de datos va a tener una primera seccion con solamente la 
+#       informacion de la imagen de entrada. Va a tener las direcciones desde
+#       la 400 hasta la 8499 en total corresponde a 8100 direcciones ya que
+#       solo se necesita la informacion de la seccion de la imagen a la que se
+#       8100.
+#  3. la memoria de datos va a tener una segunda seccion con la informacion
+#       de la imagen de salida (con el zoom aplicado y el relleno de los pixeles)
+#       esta va de la direccion 8500 hasta la 138 099. En total corresponde a
+#       229 600 valores (360x360)
+
+# CODIGO 
+
+_valores-iniciales:
+
+    # R2 = direccion inicial de la imagen de entrada
+    SUMI R2, R2, 500
+    # R6 = direccion inicial de la imagen resultado
+    SUMI R6, R0, 8500
+
+    # R7 = contador en los ciclos
+    SUMI R7, R0, R0
+
+_pixeles_conocidos:
+
+    # R3 = numFila
+    DIVI R3, R7, 360
+    # R4 = numColumna
+    RSDI R4, R7, 360
+
+    # R3 = numFila % 4
+    RSDI R3, R3, 4
+    # R4 = numColumna % 4
+    RSDI R4, R4, 4
+
+    # Prueba que las filas y columnas sean multiplos de 4
+    SCD R3, R0, _pc-next
+    SCD R4, R0, _pc-next
+
+    # R5 = contador // 4 + direccion inicial de la imagen de entrada
+    DIVI R5, R7, 4
+    SUM R5, R5, R2
+
+    # R8 = direccion de la imagen resultado donde se copia el valor del pixel
+    DIVI R8, R7, 4
+    SUM R8, R8, R6
+
+    # Cargar valor del pixel en R5 y copiarlo en imagen resultado
+    CRG R5, 0(R5)
+    GDR R5, 0(R8)
+
+    _pc-next:
+
+        # Sumar 1 en el contador y verificar si termino el analisis
+        SUMI R7, R7, 0
+        # 32400 = 360 x 360
+        SUMI R8, R0, 32400
+        DIVI R9, R7, 4
+        SCD R9, R8, _pixeles_conocidos
+
+    SUM R7, R0, R0
+
+_completar-columnas:
+
+    # R3 = numFila
+    DIVI R3, R7, 360
+    # R4 = numColumna
+    RSDI R4, R7, 360
+
+    # R3 = numFila % 4
+    RSDI R3, R3, 4
+    # R4 = numColumna % 4
+    RSDI R4, R4, 4
+
+    # Prueba que las columnas sean multiplo de 4 pero las filas no
+    SCI R3, R0, _cc-next
+    SCD R4, R0, _cc-next
+
+    # R8 = ref1 = contador - (numFila%4 * 360) + direccion inicial de imagen resultado
+    # R9 = ref2 = ref1 + 360 * 4
+    MULTI R8, R3, 360
+    RES R8, R7, R8
+    SUM R8, R8, R6
+    SUMI R9, R8, 1440
+
+    # R10 = ((ref2 - contador) / (ref2 - ref1)) * imagenResultado[ref1]
+    # R11 = ((contador - ref1) / (ref2 - ref1)) * imagenResultado[ref2]
+    # R11 -> tendra el valor final del pixel
+    CRG R10, 0(R8)
+    CRG R11, 0(R9)
+
+    # R12 = ref2 - contador
+    # R13 = contador - ref1
+    # R14 = ref2 - ref1
+    RES R12, R9, R7
+    RES R13, R7, R8
+    RES R14, R9, R8
+
+    MUL R10, R10, R12
+    MUL R11, R11, R13
+    SUM R11, R11, R10
+    DIV R11, R11, R14
+
+    # Calcular direccion para guardar el dato y guardarlo
+    SUM R8, R6, R7
+    GDR R11, 0(R8)
+
+    _cc-next:
+
+        # Sumar 1 al contador y verificar si termino el analisis
+        SUMI R7, R7, 1
+        # 128520 = 360**2 - 3*360 (se debe hacer por partes porque el valor es muy grande)
+        SUMI R8, R0, 32768
+        MULTI R8, R8, 3
+        SUMI R8, R8, 30216
+        SCD R7, R8, _completar-columnas
+
+    SUM R7, R0, R0
+
+_completar-valores:
+
+    # R3 = numFila
+    DIVI R3, R7, 360
+    # R4 = numColumna
+    RSDI R4, R7, 360
+
+    # R3 = numFila % 4
+    RSDI R3, R3, 4
+    # R4 = numColumna % 4
+    RSDI R4, R4, 4
+
+    # Prueba que las columnas no sean multiplo de 4
+    SCI R4, R0, _cv-next
+
+    # R8 = ref1 = contador - (numColumna % 4) + direccion inicial de imagen resultado
+    # R9 = ref2 = ref1 + 4
+    RES R8, R7, R4
+    SUM R8, R8, R6
+    SUMI R9, R8, 4
+
+    # R10 = ((ref2 - contador) / (ref2 - ref1)) * imagenResultado[ref1]
+    # R11 = ((contador - ref1) / (ref2 - ref1)) * imagenResultado[ref2]
+    # R11 -> tendra el valor final del pixel
+    CRG R10, 0(R8)
+    CRG R11, 0(R9)
+
+    # R12 = ref2 - contador
+    # R13 = contador - ref1
+    # R14 = ref2 - ref1
+    RES R12, R9, R7
+    RES R13, R7, R8
+    RES R14, R9, R8
+
+    MUL R10, R10, R12
+    MUL R11, R11, R13
+    SUM R11, R11, R10
+    DIV R11, R11, R14
+
+    # Calcular direccion para guardar el dato y guardarlo
+    SUM R8, R6, R7
+    GDR R11, 0(R8)
+
+    _cv-next:
+
+        # Sumar 1 al contador y verificar si termino el analisis
+        SUMI R7, R7, 1
+        # 128520 = 360**2 - 3*360 - 4 (se debe hacer por partes porque el valor es muy grande)
+        SUMI R8, R0, 32768
+        MULTI R8, R8, 3
+        SUMI R8, R8, 30212
+        SCD R7, R8, _completar-valores
