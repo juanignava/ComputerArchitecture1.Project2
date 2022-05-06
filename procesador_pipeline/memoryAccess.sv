@@ -1,11 +1,11 @@
 module memoryAccess (input logic clk, memWriteM, switchStart,
-							  input logic [31:0] A, wd,
-							  output logic [31:0] rd);
+							  input logic [31:0] pc, address, wd,
+							  output logic [31:0] rd, instruction);
 
 	
 
 	memoryController memoryControllerUnit (clk, memWriteM, switchStart, 
-														A, wd,
-														rd);
+														pc, address, wd,
+														rd, instruction);
 
 endmodule 

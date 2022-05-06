@@ -9,5 +9,6 @@ vlog -sv -work work +incdir+C:/altera/14.1/procesador_pipeline {C:/altera/14.1/p
 vlog -sv -work work +incdir+C:/altera/14.1/procesador_pipeline {C:/altera/14.1/procesador_pipeline/memoryController.sv}
 vlog -sv -work work +incdir+C:/altera/14.1/procesador_pipeline {C:/altera/14.1/procesador_pipeline/memoryAccess.sv}
 vlog -sv -work work +incdir+C:/altera/14.1/procesador_pipeline {C:/altera/14.1/procesador_pipeline/memoryAccess_tb.sv}
+vlog -sv -work work +incdir+C:/altera/14.1/procesador_pipeline {C:/altera/14.1/procesador_pipeline/imem.sv}
 vlog -sv -work work +incdir+C:/altera/14.1/procesador_pipeline {C:/altera/14.1/procesador_pipeline/dmem_rom.sv}
 

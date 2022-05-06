@@ -1,5 +1,5 @@
 Analysis & Elaboration report for procesador_pipeline
-Thu May 05 14:42:52 2022
+Fri May 06 00:16:48 2022
 Quartus II 64-Bit Version 14.1.0 Build 186 12/03/2014 SJ Web Edition
 
 
@@ -12,6 +12,7 @@ Quartus II 64-Bit Version 14.1.0 Build 186 12/03/2014 SJ Web Edition
   4. Analysis & Elaboration Settings
   5. Port Connectivity Checks: "memoryAccess:memory"
   6. Analysis & Elaboration Messages
+  7. Analysis & Elaboration Suppressed Messages
 
 
 
@@ -38,7 +39,7 @@ agreement for further details.
 +----------------------------------------------------------------------------+
 ; Analysis & Elaboration Summary                                             ;
 +-------------------------------+--------------------------------------------+
-; Analysis & Elaboration Status ; Successful - Thu May 05 14:42:52 2022      ;
+; Analysis & Elaboration Status ; Successful - Fri May 06 00:16:48 2022      ;
 ; Quartus II 64-Bit Version     ; 14.1.0 Build 186 12/03/2014 SJ Web Edition ;
 ; Revision Name                 ; procesador_pipeline                        ;
 ; Top-level Entity Name         ; memoryAccess_tb                            ;
@@ -158,13 +159,14 @@ agreement for further details.
 +---------------------------------------------------------------------------------+--------------------+---------------------+
 
 
-+----------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "memoryAccess:memory"                                                                ;
-+------+--------+----------+-------------------------------------------------------------------------------------+
-; Port ; Type   ; Severity ; Details                                                                             ;
-+------+--------+----------+-------------------------------------------------------------------------------------+
-; rd   ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-+------+--------+----------+-------------------------------------------------------------------------------------+
++-----------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "memoryAccess:memory"                                                                       ;
++-------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port        ; Type   ; Severity ; Details                                                                             ;
++-------------+--------+----------+-------------------------------------------------------------------------------------+
+; rd          ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; instruction ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
 +---------------------------------+
@@ -173,7 +175,7 @@ agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Elaboration
     Info: Version 14.1.0 Build 186 12/03/2014 SJ Web Edition
-    Info: Processing started: Thu May 05 14:42:42 2022
+    Info: Processing started: Fri May 06 00:16:39 2022
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off procesador_pipeline -c procesador_pipeline --analysis_and_elaboration
 Info (20030): Parallel compilation is enabled and will use 12 of the 12 processors detected
 Info (12021): Found 1 design units, including 1 entities, in source file imem.sv
@@ -189,23 +191,163 @@ Info (12021): Found 1 design units, including 1 entities, in source file dmem_ro
 Info (12021): Found 1 design units, including 1 entities, in source file memoryaccess_tb.sv
     Info (12023): Found entity 1: memoryAccess_tb
 Info (12127): Elaborating entity "memoryAccess_tb" for the top level hierarchy
-Warning (10755): Verilog HDL warning at memoryAccess_tb.sv(54): assignments to clk create a combinational loop
+Warning (10755): Verilog HDL warning at memoryAccess_tb.sv(57): assignments to clk create a combinational loop
 Info (12128): Elaborating entity "memoryAccess" for hierarchy "memoryAccess:memory"
 Info (12128): Elaborating entity "memoryController" for hierarchy "memoryAccess:memory|memoryController:memoryControllerUnit"
+Info (10041): Inferred latch for "mapAddressRAM[0]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[1]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[2]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[3]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[4]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[5]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[6]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[7]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[8]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[9]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[10]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[11]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[12]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[13]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[14]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[15]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[16]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[17]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[18]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[19]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[20]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[21]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[22]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[23]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[24]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[25]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[26]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[27]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[28]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[29]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[30]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressRAM[31]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[0]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[1]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[2]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[3]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[4]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[5]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[6]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[7]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[8]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[9]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[10]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[11]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[12]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[13]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[14]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[15]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[16]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[17]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[18]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[19]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[20]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[21]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[22]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[23]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[24]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[25]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[26]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[27]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[28]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[29]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[30]" at memoryController.sv(30)
+Info (10041): Inferred latch for "mapAddressROM[31]" at memoryController.sv(30)
+Info (10041): Inferred latch for "instruction[0]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[1]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[2]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[3]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[4]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[5]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[6]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[7]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[8]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[9]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[10]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[11]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[12]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[13]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[14]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[15]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[16]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[17]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[18]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[19]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[20]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[21]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[22]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[23]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[24]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[25]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[26]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[27]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[28]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[29]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[30]" at memoryController.sv(16)
+Info (10041): Inferred latch for "instruction[31]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[0]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[1]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[2]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[3]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[4]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[5]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[6]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[7]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[8]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[9]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[10]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[11]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[12]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[13]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[14]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[15]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[16]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[17]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[18]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[19]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[20]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[21]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[22]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[23]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[24]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[25]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[26]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[27]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[28]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[29]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[30]" at memoryController.sv(16)
+Info (10041): Inferred latch for "mapAddressInstructions[31]" at memoryController.sv(16)
 Info (12128): Elaborating entity "dmem_ram" for hierarchy "memoryAccess:memory|memoryController:memoryControllerUnit|dmem_ram:ram"
 Warning (10230): Verilog HDL assignment warning at dmem_ram.sv(11): truncated value with size 63 to match size of target (32)
-Warning (10175): Verilog HDL warning at dmem_ram.sv(23): ignoring unsupported system task
+Warning (10175): Verilog HDL warning at dmem_ram.sv(24): ignoring unsupported system task
 Info (12128): Elaborating entity "dmem_rom" for hierarchy "memoryAccess:memory|memoryController:memoryControllerUnit|dmem_rom:rom"
 Warning (10850): Verilog HDL warning at dmem_rom.sv(9): number of words (4) in memory file does not match the number of elements in the address range [0:8099]
 Warning (10030): Net "dmem_ROM.data_a" at dmem_rom.sv(4) has no driver or initial value, using a default initial value '0'
 Warning (10030): Net "dmem_ROM.waddr_a" at dmem_rom.sv(4) has no driver or initial value, using a default initial value '0'
 Warning (10030): Net "dmem_ROM.we_a" at dmem_rom.sv(4) has no driver or initial value, using a default initial value '0'
+Info (12128): Elaborating entity "imem" for hierarchy "memoryAccess:memory|memoryController:memoryControllerUnit|imem:imem_rom"
+Warning (10850): Verilog HDL warning at imem.sv(9): number of words (4) in memory file does not match the number of elements in the address range [0:399]
+Warning (10030): Net "imem_ROM.data_a" at imem.sv(4) has no driver or initial value, using a default initial value '0'
+Warning (10030): Net "imem_ROM.waddr_a" at imem.sv(4) has no driver or initial value, using a default initial value '0'
+Warning (10030): Net "imem_ROM.we_a" at imem.sv(4) has no driver or initial value, using a default initial value '0'
 Warning (12011): Net is missing source, defaulting to GND
     Warning (12110): Net "clk" is missing source, defaulting to GND
-Info: Quartus II 64-Bit Analysis & Elaboration was successful. 0 errors, 9 warnings
+Info (144001): Generated suppressed messages file C:/altera/14.1/procesador_pipeline/output_files/procesador_pipeline.map.smsg
+Info: Quartus II 64-Bit Analysis & Elaboration was successful. 0 errors, 13 warnings
     Info: Peak virtual memory: 5409 megabytes
-    Info: Processing ended: Thu May 05 14:42:52 2022
-    Info: Elapsed time: 00:00:10
-    Info: Total CPU time (on all processors): 00:00:18
+    Info: Processing ended: Fri May 06 00:16:48 2022
+    Info: Elapsed time: 00:00:09
+    Info: Total CPU time (on all processors): 00:00:17
+
+
++--------------------------------------------+
+; Analysis & Elaboration Suppressed Messages ;
++--------------------------------------------+
+The suppressed messages can be found in C:/altera/14.1/procesador_pipeline/output_files/procesador_pipeline.map.smsg.
 
 

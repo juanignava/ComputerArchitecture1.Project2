@@ -20,6 +20,7 @@ module dmem_ram(input logic clk, we,
 				begin
 					if (address >= 'd0 && address <= 'd129599)
 						dmem_RAM[address] <= wd;
+						rd = rd;
 						$writememh("C:/altera/14.1/procesador_pipeline/imageOutput.txt", dmem_RAM);
 				end
 		end

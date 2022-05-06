@@ -1,16 +1,19 @@
 module memoryAccess_tb ();
 
 	logic clk, memWriteM, switchStart;
-	logic [31:0] A, wd;
-	logic [31:0] rd;
+	logic [31:0] pc, A, wd;
+	logic [31:0] rd, instruction;
 
-	memoryAccess memory (clk, memWriteM, switchStart, A, wd, rd);
+	memoryAccess memory (clk, memWriteM, switchStart, pc, A, wd, rd, instruction);
 	
 	initial begin
 		
 		clk = 0; switchStart = 0; #1;
 		
 		switchStart = 1; #1;
+		
+		// PC test 1:
+		pc = 0; #1
 		
 		// Writing on RAM test 1:
 		A = 8501; #1

@@ -6,7 +6,7 @@ module imem (input logic [31:0] pc,
 	initial
 	
 		// Instructions memory.
-		$readmemh("instructions.txt", imem_ROM);
+		$readmemh("C:/altera/14.1/procesador_pipeline/instructions.txt", imem_ROM);
 		
 	assign instruction = imem_ROM[pc[31:0]];
 	
