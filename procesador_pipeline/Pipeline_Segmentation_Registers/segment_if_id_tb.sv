@@ -22,18 +22,23 @@ module segment_if_id_tb ();
 		
 		clk = 0; #1;
 		
-		// rst test 1
-		rst = 1; #1;
-		rst = 0; #1;
+		// pc_out and instruction test 1:
+		pc_out = 1; instruction = 32'b10101111101011111010111110101111; #2;
 		
-		// pc_out and instruction test 1
-		pc_out = 1; instruction = 32'b10101111101011111010111110101111; #1;
+		// pc_out and instruction test 2:
+		pc_out = 2; instruction = 32'b11110000000011110000000011111100; #2;
 		
-		pc_out = 0; instruction = 32'b0; #1;
+		// pc_out and instruction test 3:
+		pc_out = 3; instruction = 32'b11111111000011111111000011111111; #2;
 		
-		// rst test 2
-		rst = 1; #1;
-		rst = 0; #1;
+		// pc_out and instruction test 4:
+		pc_out = 4; instruction = 32'b10101111101011111010111110101111; #2;
+		
+		// pc_out and instruction test 1:
+		pc_out = 5; instruction = 32'b10101111101011111010111110101111; #2;
+		
+		// pc_out and instruction test 2:
+		pc_out = 6; instruction = 32'b11110000000011110000000011111100; #2;
 		 
 	end
 	
