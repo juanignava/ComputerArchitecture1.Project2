@@ -9,6 +9,10 @@ import numpy as np
 import imageio
 from sympy import true
 
+
+### CONTANTS
+ZOOM_SECTION = 15
+
 # función de cambio de la imagen a escala de grises
 def leer_imagen(ruta):
     """
@@ -55,84 +59,52 @@ def completar_cero(bin_str):
 
     return result
 
-def combinar_bits(lista):
+
+# función para alterar el archivo txt que corresponde
+# a la memoria de instrucciones
+def completar_ins_mem(ruta, lista_instr):
     """
-    Esta función recibe la lista de los pixeles de la
-    imagen en escala de grises y combina cada 4 valores
-    en un binario de 32 bits
-    """
-    
-    # por cada 4 valores
-    i = 0
-    bin_list = []
-    cant_elem = len(lista) - 1
-    while (i < cant_elem):
-        j = 0
-        bin_str = ""
-        for j in range(4):
-            elem = lista[i]
-            elem_bin = str(format(elem, "b"))
-            elem_bin = completar_cero(elem_bin)
-            bin_str = elem_bin + bin_str
-            i += 1
-        bin_list.append(int(bin_str, 2))
-
-    return bin_list
-
-
-# función para alterar el archivo .mif en las direcciones
-# correspondientes de memoria
-
-def completar_mif(ruta, lista_data, lista_instr):
-    """
-    Esta función permite generar el archivo .mif con los valores
-    calculados previamente.
-    ruta -> nombre el archivo .mif a alterar
-    lista_data -> lista con la información a añadir en el archivo
+    Esta función permite generar el archivo txt que sera usado
+    por la memoria de instrucciones
+    ruta -> nombre el archivo .txt a alterar
     lista_instr -> lista con las instrucciones
     """
     f = open(ruta, "w")
-    f.write("WIDTH=8;\n")
-    f.write("DEPTH=65536;\n\n")
-    f.write("ADDRESS_RADIX=UNS;\n")
-    f.write("DATA_RADIX=UNS;\n\n")
-    f.write("CONTENT BEGIN\n")
 
     cont = 0
+
     for ins in lista_instr:
-        f.write("\t" + str(cont) + "\t:\t" + str(ins) + ";\n")
+        f.write(str(ins) +  "\n")
         cont += 1
 
-    f.write("\t[" + str(cont) + "..734]\t:\t0;\n")
+    f.close()
 
-    cont = 735
-    for data in lista_data:
-        f.write("\t" + str(cont) + "\t:\t" + str(data) + ";\n")
+
+def completar_data_mem(ruta, lista_datos):
+    """
+    Esta función permite generar el archivo txt que sera usado
+    por la memoria de datos relacionada a la imagen de entrada
+
+    ruta -> nombre del archivo .txt a alterar
+    lista_datos -> lista con los datos de la imagen de entrada
+    """
+    f = open(ruta, "w")
+
+    cont = 0
+    begin_limit = ZOOM_SECTION * 8100
+    end_limit = begin_limit + 8100
+
+    while (cont < begin_limit):
         cont += 1
 
-    ######## Borrar esto, es prueba
-    for data in lista_data:
-        f.write("\t" + str(cont) + "\t:\t" + str(data) + ";\n")
+    while (cont < end_limit):
+        f.write(str(lista_datos[cont]) +  "\n")
         cont += 1
-    ##############################
-
-    f.write("\t[" + str(cont) + "..65535]\t:\t0;\n")
-
-    f.write("END;")
 
     f.close()
 
 
 
-
-
-
-# opcional:
-# este script también puede generar el .mif completo al
-# añadir las líneas respectivas de las instrucciones
-# para este caso se cuenta con la salida de las instrucciones
-# en binario del compilador y ahora se convierten en decimal
-# y por último se añaden en las primeras direcciones de memoria
 def lectura_instr(ruta):
     """
     Esta función genera una lista con las instrucciones en decimal
@@ -152,12 +124,15 @@ def lectura_instr(ruta):
 
 
 
+# MAIN
+# especificar la ruta de la imagena a analizar
+lista_datos = escala_grises("images/test-image.bmp")
 
-# main
-lista_grises = escala_grises("images/test-image.bmp")
-
-lista_bin = combinar_bits(lista_grises)
-
+# especificar la ruta del txt con el binario de las instrucciones
 lista_inst = lectura_instr("binaryCode.txt")
 
-completar_mif("mem_data.mif", lista_bin, lista_inst)
+# crear el archivo que lee la memoria de instrucciones
+completar_ins_mem("mem_instrucciones.txt", lista_inst)
+
+# crear el archivo que lee la memoria de datos para la imagen de entrada
+completar_data_mem("mem_data_input_image.txt", lista_datos)
