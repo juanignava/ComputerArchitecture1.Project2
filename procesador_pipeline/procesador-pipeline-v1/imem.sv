@@ -7,9 +7,9 @@ module imem (input logic [31:0] pc,
 	
 		// Instructions memory.
 		// DIRECCIÓN DE JOSE
-		//$readmemh("C:/altera/14.1/procesador_pipeline/instructions.txt", imem_ROM);
+		$readmemh("C:/altera/14.1/procesador_pipeline/instructions.txt", imem_ROM);
 		// DIRECCIÓN DE NACHO NAVARRO
-		$readmemh("C:/arqui-1/procesador-pipeline/instructions.txt", imem_ROM);
+		//$readmemh("C:/arqui-1/procesador-pipeline/instructions.txt", imem_ROM);
 		
 		
 	assign instruction = imem_ROM[pc[31:0]];

@@ -7,9 +7,9 @@ module dmem_rom (input logic [31:0] address,
 	
 		// Data meant to be read
 		// DIRECCIÓN DE JOSE
-		//$readmemh("C:/altera/14.1/procesador_pipeline/imageData.txt", dmem_ROM);
+		$readmemh("C:/altera/14.1/procesador_pipeline/imageData.txt", dmem_ROM);
 		// DIRECCIÓN DE NACHO NAVARRO
-		$readmemh("C:/arqui-1/procesador-pipeline/imageData.txt", dmem_ROM);
+		//$readmemh("C:/arqui-1/procesador-pipeline/imageData.txt", dmem_ROM);
 		
 		
 	assign rd = dmem_ROM[address[31:0]];

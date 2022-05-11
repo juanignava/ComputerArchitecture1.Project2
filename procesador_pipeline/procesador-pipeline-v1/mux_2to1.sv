@@ -11,7 +11,7 @@ module mux_2to1 #(parameter N = 32) (input logic [N-1:0] A, B,
 			// 17-bit unsigned immediate
 			1'b1: C = B;
 			
-			//default: C = 32'bx; // undefined
+			default: C = A; // undefined
 			
 		endcase
 	

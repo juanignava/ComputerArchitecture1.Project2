@@ -22,9 +22,9 @@ module dmem_ram(input logic clk, we,
 						dmem_RAM[address] <= wd;
 						rd = rd;
 						// DIRECCION DE JOSE
-						//$writememh("C:/altera/14.1/procesador_pipeline/imageOutput.txt", dmem_RAM);
+						$writememh("C:/altera/14.1/procesador_pipeline/imageOutput.txt", dmem_RAM);
 						// DIRECCION DE NACHO NAVARRO
-						$writememh("C:/arqui-1/procesador-pipeline/imageOutput.txt", dmem_RAM);
+						//$writememh("C:/arqui-1/procesador-pipeline/imageOutput.txt", dmem_RAM);
 						
 				end
 		end

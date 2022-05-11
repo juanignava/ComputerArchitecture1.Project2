@@ -17,10 +17,11 @@ module testbench();
 		rst = 1;
 		clk = 1;
 		
-		#2
+		#1
 		
 		rst = 0;
 		
+		#1;
 		
 	end
 		
