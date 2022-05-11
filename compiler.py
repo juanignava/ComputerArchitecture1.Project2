@@ -107,6 +107,42 @@ def signExtension(number, instructionType, opcode, pointerLine):
 
             return binary
 
+# case 0: control risks
+# instructionElements => string list
+# typeDictionary => string dictionary
+# opcodeDictionary => string dictionary
+def stallInsertionCase0(instructionElements, typeDictionary):
+
+    result = instructionElements.copy()
+
+    # this insertion avoids index out of range error
+    result.append("*")
+
+    stall = ['SUM', 'R0', 'R0', 'R0', "********************"]
+
+    i = 0
+
+    # loop to iterate each instruction
+    for j in result:
+
+        if(len(j) > 1):
+
+            currentInstruction = j[0]
+
+            currentInstructionType = typeDictionary[currentInstruction]
+
+            # control instruction
+            if(currentInstructionType == "00"):
+
+                result.insert(i + 1, stall)
+                result.insert(i + 2, stall)
+                result.insert(i + 3, stall)
+                result.insert(i + 4, stall)           
+
+        i += 1
+
+    return result
+
 # case 1: dependencies between instructions with 0 instructions among them
 # instructionElements => string list
 # typeDictionary => string dictionary
@@ -152,16 +188,8 @@ def stallInsertionCase1(instructionElements, typeDictionary, opcodeDictionary):
 
                 nextInstructionType = typeDictionary[nextInstruction]           
 
-                # control instruction
-                if(currentInstructionType == "00"):
-
-                    result.insert(i + 1, stall)
-                    result.insert(i + 2, stall)
-                    result.insert(i + 3, stall)
-                    result.insert(i + 4, stall)
-                    
                 # memory instruction
-                elif(currentInstructionType == "01" and currentInstruction == "CRG"):            
+                if(currentInstructionType == "01" and currentInstruction == "CRG"):
 
                     # control instruction
                     if(nextInstructionType == "00"):
@@ -182,8 +210,38 @@ def stallInsertionCase1(instructionElements, typeDictionary, opcodeDictionary):
                                 result.insert(i + 2, stall)
                                 result.insert(i + 3, stall)
 
+                    # memory instruction
+                    elif(nextInstructionType == "01"):
+
+                        nextOpcode = opcodeDictionary[nextInstruction]
+
+                        nextIns = nextOpcode[0]
+                        
+                        # GRD instruction
+                        if(nextIns == "0"):
+
+                            nextSource = nextInstructionElements[1]
+                            nextDestiny = nextInstructionElements[3]
+
+                            if(currentDestiny == nextSource or currentDestiny == nextDestiny):
+
+                                result.insert(i + 1, stall)
+                                result.insert(i + 2, stall)
+                                result.insert(i + 3, stall)
+                        
+                        # CRG instruction
+                        else:
+
+                            nextSource = nextInstructionElements[3]
+
+                            if(currentDestiny == nextSource):
+
+                                result.insert(i + 1, stall)
+                                result.insert(i + 2, stall)
+                                result.insert(i + 3, stall)
+
                     # data instruction
-                    elif(nextInstructionType == "10"):
+                    else:
 
                         nextSource2 = nextInstructionElements[2]
                         nextSource3 = nextInstructionElements[3]
@@ -227,7 +285,7 @@ def stallInsertionCase1(instructionElements, typeDictionary, opcodeDictionary):
                         if(nextIns == "0"):
 
                             nextSource = nextInstructionElements[1]
-                            nextDestiny = nextInstructionElements[4]
+                            nextDestiny = nextInstructionElements[3]
 
                             if(currentDestiny == nextSource or currentDestiny == nextDestiny):
 
@@ -238,7 +296,7 @@ def stallInsertionCase1(instructionElements, typeDictionary, opcodeDictionary):
                         # CRG instruction
                         else:
 
-                            nextSource = nextInstructionElements[4]
+                            nextSource = nextInstructionElements[3]
 
                             if(currentDestiny == nextSource):
 
@@ -327,9 +385,37 @@ def stallInsertionCase2(instructionElements, typeDictionary, opcodeDictionary):
 
                                 result.insert(i + 1, stall)
                                 result.insert(i + 2, stall)
-                    
+
+                    # memory instruction
+                    elif(nextInstructionType == "01"):
+
+                        nextOpcode = opcodeDictionary[nextInstruction]
+
+                        nextIns = nextOpcode[0]
+                        
+                        # GRD instruction
+                        if(nextIns == "0"):
+
+                            nextSource = nextInstructionElements[1]
+                            nextDestiny = nextInstructionElements[3]
+
+                            if(currentDestiny == nextSource or currentDestiny == nextDestiny):
+
+                                result.insert(i + 1, stall)
+                                result.insert(i + 2, stall)
+                        
+                        # CRG instruction
+                        else:
+
+                            nextSource = nextInstructionElements[3]
+
+                            if(currentDestiny == nextSource):
+
+                                result.insert(i + 1, stall)
+                                result.insert(i + 2, stall)
+                                        
                     # data instruction
-                    elif(nextInstructionType == "10"):
+                    else:
 
                         nextSource2 = nextInstructionElements[2]
                         nextSource3 = nextInstructionElements[3]
@@ -371,7 +457,7 @@ def stallInsertionCase2(instructionElements, typeDictionary, opcodeDictionary):
                         if(nextIns == "0"):
 
                             nextSource = nextInstructionElements[1]
-                            nextDestiny = nextInstructionElements[4]
+                            nextDestiny = nextInstructionElements[3]
 
                             if(currentDestiny == nextSource or currentDestiny == nextDestiny):
 
@@ -381,7 +467,7 @@ def stallInsertionCase2(instructionElements, typeDictionary, opcodeDictionary):
                         # CRG instruction
                         else:
 
-                            nextSource = nextInstructionElements[4]
+                            nextSource = nextInstructionElements[3]
 
                             if(currentDestiny == nextSource):
 
@@ -468,8 +554,34 @@ def stallInsertionCase3(instructionElements, typeDictionary, opcodeDictionary):
 
                                 result.insert(i + 1, stall)
                     
+                    # memory instruction
+                    elif(nextInstructionType == "01"):
+
+                        nextOpcode = opcodeDictionary[nextInstruction]
+
+                        nextIns = nextOpcode[0]
+                        
+                        # GRD instruction
+                        if(nextIns == "0"):
+
+                            nextSource = nextInstructionElements[1]
+                            nextDestiny = nextInstructionElements[3]
+
+                            if(currentDestiny == nextSource or currentDestiny == nextDestiny):
+
+                                result.insert(i + 1, stall)
+                        
+                        # CRG instruction
+                        else:
+
+                            nextSource = nextInstructionElements[3]
+
+                            if(currentDestiny == nextSource):
+
+                                result.insert(i + 1, stall)
+
                     # data instruction
-                    elif(nextInstructionType == "10"):
+                    else:
 
                         nextSource2 = nextInstructionElements[2]
                         nextSource3 = nextInstructionElements[3]
@@ -509,7 +621,7 @@ def stallInsertionCase3(instructionElements, typeDictionary, opcodeDictionary):
                         if(nextIns == "0"):
 
                             nextSource = nextInstructionElements[1]
-                            nextDestiny = nextInstructionElements[4]
+                            nextDestiny = nextInstructionElements[3]
 
                             if(currentDestiny == nextSource or currentDestiny == nextDestiny):
 
@@ -518,7 +630,7 @@ def stallInsertionCase3(instructionElements, typeDictionary, opcodeDictionary):
                         # CRG instruction
                         else:
 
-                            nextSource = nextInstructionElements[4]
+                            nextSource = nextInstructionElements[3]
 
                             if(currentDestiny == nextSource):
 
@@ -543,11 +655,13 @@ def stallInsertionCase3(instructionElements, typeDictionary, opcodeDictionary):
 # opcodeDictionary => string dictionary
 def riskControlUnit(instructionElements, typeDictionary, opcodeDictionary):
 
-    case1 = stallInsertionCase1(instructionElements, typeDictionary, opcodeDictionary)
+    case0 = stallInsertionCase0(instructionElements, typeDictionary)
+
+    case1 = stallInsertionCase1(case0, typeDictionary, opcodeDictionary)
 
     case2 = stallInsertionCase2(case1, typeDictionary, opcodeDictionary)
 
-    case3 = stallInsertionCase3(case2, typeDictionary, opcodeDictionary)
+    case3 = stallInsertionCase3(case2, typeDictionary, opcodeDictionary)    
 
     return case3
 
@@ -799,7 +913,7 @@ registerDictionary = {
     "R15": "1111"
 }
 
-instructionElements = getInstructionElements('zoom-image.txt')
+instructionElements = getInstructionElements('zoom-image-v2.txt')
 
 instructionElements = riskControlUnit(instructionElements, typeDictionary, opcodeDictionary)
 

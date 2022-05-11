@@ -1,7 +1,7 @@
 _valores-iniciales:
 SUMI R2, R2, 500
 SUMI R6, R0, 8500
-SUMI R7, R0, R0
+SUM R7, R0, R0
 _pixeles_conocidos:
 DIVI R3, R7, 360
 RSDI R4, R7, 360
@@ -28,7 +28,7 @@ RSDI R3, R3, 4
 RSDI R4, R4, 4
 SCI R3, R0, _cc-next
 SCD R4, R0, _cc-next
-MULTI R8, R3, 360
+MULI R8, R3, 360
 RES R8, R7, R8
 SUM R8, R8, R6
 SUMI R9, R8, 1440
@@ -46,7 +46,7 @@ GDR R11, 0(R8)
 _cc-next:
 SUMI R7, R7, 1
 SUMI R8, R0, 32768
-MULTI R8, R8, 3
+MULI R8, R8, 3
 SUMI R8, R8, 30216
 SCD R7, R8, _completar-columnas
 SUM R7, R0, R0
@@ -73,6 +73,6 @@ GDR R11, 0(R8)
 _cv-next:
 SUMI R7, R7, 1
 SUMI R8, R0, 32768
-MULTI R8, R8, 3
+MULI R8, R8, 3
 SUMI R8, R8, 30212
 SCD R7, R8, _completar-valores
