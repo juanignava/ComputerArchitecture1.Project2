@@ -39,7 +39,7 @@
 
 set_global_assignment -name FAMILY "Cyclone V"
 set_global_assignment -name DEVICE 5CGXFC7C7F23C8
-set_global_assignment -name TOP_LEVEL_ENTITY "procesador-pipeline"
+set_global_assignment -name TOP_LEVEL_ENTITY testbench
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 20.1.1
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "13:59:45  MAY 10, 2022"
 set_global_assignment -name LAST_QUARTUS_VERSION "20.1.1 Lite Edition"
@@ -68,3 +68,13 @@ set_global_assignment -name SYSTEMVERILOG_FILE pc_register.sv
 set_global_assignment -name SYSTEMVERILOG_FILE segment_ex_mem.sv
 set_global_assignment -name SYSTEMVERILOG_FILE segment_id_ex.sv
 set_global_assignment -name SYSTEMVERILOG_FILE segment_if_id.sv
+set_global_assignment -name SYSTEMVERILOG_FILE segment_mem_wb.sv
+set_global_assignment -name SYSTEMVERILOG_FILE alu.sv
+set_global_assignment -name SYSTEMVERILOG_FILE control_unit.sv
+set_global_assignment -name SYSTEMVERILOG_FILE procesador_pipeline.sv
+set_global_assignment -name SYSTEMVERILOG_FILE register_file.sv
+set_global_assignment -name SYSTEMVERILOG_FILE testbench.sv
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

@@ -1,0 +1,16 @@
+Ejemplo 1:
+
+este es un ejemplo sencillo para probar las operaciones de datos. la idea es que en el testbench revisar que los valores de los registros sí se vean alterados como se espera.
+
+Ejemplo 2:
+
+Este es un ejemplo que incluye operaciones de control, la idea es ver si el PC se comporta bien y si se ejecutan las instrucciones deseadas.
+
+Ejemplo 3: 
+
+Este es un ejemplo más robusto que considera las instrucciones de memoria, la idea es ver si se leen y escriben los valores correctamente.
+
+
+Ejemplo 4: 
+
+Si esos ejemplos funcionan bien entonces probablemente todo esté bien programado. El siguiente paso sería revisar el funcionamiento del programa con el código, llamado zoom-image-v2.txt

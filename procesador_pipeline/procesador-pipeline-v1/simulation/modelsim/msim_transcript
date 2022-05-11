@@ -1,0 +1,232 @@
+# Reading pref.tcl
+# do procesador-pipeline_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work rtl_work 
+# Copying C:/intelFPGA/20.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vlog -sv -work work +incdir+C:/arqui-1/procesador-pipeline {C:/arqui-1/procesador-pipeline/adder.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:53:53 on May 10,2022
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/arqui-1/procesador-pipeline" C:/arqui-1/procesador-pipeline/adder.sv 
+# -- Compiling module adder
+# 
+# Top level modules:
+# 	adder
+# End time: 23:53:53 on May 10,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/arqui-1/procesador-pipeline {C:/arqui-1/procesador-pipeline/sign_extend.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:53:54 on May 10,2022
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/arqui-1/procesador-pipeline" C:/arqui-1/procesador-pipeline/sign_extend.sv 
+# -- Compiling module sign_extend
+# 
+# Top level modules:
+# 	sign_extend
+# End time: 23:53:54 on May 10,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/arqui-1/procesador-pipeline {C:/arqui-1/procesador-pipeline/memoryAccess.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:53:54 on May 10,2022
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/arqui-1/procesador-pipeline" C:/arqui-1/procesador-pipeline/memoryAccess.sv 
+# -- Compiling module memoryAccess
+# 
+# Top level modules:
+# 	memoryAccess
+# End time: 23:53:55 on May 10,2022, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/arqui-1/procesador-pipeline {C:/arqui-1/procesador-pipeline/memoryController.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:53:55 on May 10,2022
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/arqui-1/procesador-pipeline" C:/arqui-1/procesador-pipeline/memoryController.sv 
+# -- Compiling module memoryController
+# 
+# Top level modules:
+# 	memoryController
+# End time: 23:53:55 on May 10,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/arqui-1/procesador-pipeline {C:/arqui-1/procesador-pipeline/dmem_ram.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:53:55 on May 10,2022
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/arqui-1/procesador-pipeline" C:/arqui-1/procesador-pipeline/dmem_ram.sv 
+# -- Compiling module dmem_ram
+# 
+# Top level modules:
+# 	dmem_ram
+# End time: 23:53:55 on May 10,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/arqui-1/procesador-pipeline {C:/arqui-1/procesador-pipeline/mux_2to1.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:53:55 on May 10,2022
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/arqui-1/procesador-pipeline" C:/arqui-1/procesador-pipeline/mux_2to1.sv 
+# -- Compiling module mux_2to1
+# 
+# Top level modules:
+# 	mux_2to1
+# End time: 23:53:55 on May 10,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/arqui-1/procesador-pipeline {C:/arqui-1/procesador-pipeline/mux_4to1.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:53:55 on May 10,2022
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/arqui-1/procesador-pipeline" C:/arqui-1/procesador-pipeline/mux_4to1.sv 
+# -- Compiling module mux_4to1
+# 
+# Top level modules:
+# 	mux_4to1
+# End time: 23:53:55 on May 10,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/arqui-1/procesador-pipeline {C:/arqui-1/procesador-pipeline/pc_register.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:53:55 on May 10,2022
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/arqui-1/procesador-pipeline" C:/arqui-1/procesador-pipeline/pc_register.sv 
+# -- Compiling module pc_register
+# 
+# Top level modules:
+# 	pc_register
+# End time: 23:53:56 on May 10,2022, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/arqui-1/procesador-pipeline {C:/arqui-1/procesador-pipeline/segment_ex_mem.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:53:56 on May 10,2022
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/arqui-1/procesador-pipeline" C:/arqui-1/procesador-pipeline/segment_ex_mem.sv 
+# -- Compiling module segment_ex_mem
+# 
+# Top level modules:
+# 	segment_ex_mem
+# End time: 23:53:56 on May 10,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/arqui-1/procesador-pipeline {C:/arqui-1/procesador-pipeline/segment_id_ex.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:53:56 on May 10,2022
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/arqui-1/procesador-pipeline" C:/arqui-1/procesador-pipeline/segment_id_ex.sv 
+# -- Compiling module segment_id_ex
+# 
+# Top level modules:
+# 	segment_id_ex
+# End time: 23:53:56 on May 10,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/arqui-1/procesador-pipeline {C:/arqui-1/procesador-pipeline/segment_if_id.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:53:56 on May 10,2022
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/arqui-1/procesador-pipeline" C:/arqui-1/procesador-pipeline/segment_if_id.sv 
+# -- Compiling module segment_if_id
+# 
+# Top level modules:
+# 	segment_if_id
+# End time: 23:53:56 on May 10,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/arqui-1/procesador-pipeline {C:/arqui-1/procesador-pipeline/segment_mem_wb.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:53:56 on May 10,2022
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/arqui-1/procesador-pipeline" C:/arqui-1/procesador-pipeline/segment_mem_wb.sv 
+# -- Compiling module segment_mem_wb
+# 
+# Top level modules:
+# 	segment_mem_wb
+# End time: 23:53:56 on May 10,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/arqui-1/procesador-pipeline {C:/arqui-1/procesador-pipeline/alu.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:53:56 on May 10,2022
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/arqui-1/procesador-pipeline" C:/arqui-1/procesador-pipeline/alu.sv 
+# -- Compiling module alu
+# 
+# Top level modules:
+# 	alu
+# End time: 23:53:56 on May 10,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/arqui-1/procesador-pipeline {C:/arqui-1/procesador-pipeline/control_unit.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:53:57 on May 10,2022
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/arqui-1/procesador-pipeline" C:/arqui-1/procesador-pipeline/control_unit.sv 
+# -- Compiling module control_unit
+# 
+# Top level modules:
+# 	control_unit
+# End time: 23:53:57 on May 10,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/arqui-1/procesador-pipeline {C:/arqui-1/procesador-pipeline/procesador_pipeline.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:53:57 on May 10,2022
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/arqui-1/procesador-pipeline" C:/arqui-1/procesador-pipeline/procesador_pipeline.sv 
+# -- Compiling module procesador_pipeline
+# 
+# Top level modules:
+# 	procesador_pipeline
+# End time: 23:53:57 on May 10,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/arqui-1/procesador-pipeline {C:/arqui-1/procesador-pipeline/register_file.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:53:57 on May 10,2022
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/arqui-1/procesador-pipeline" C:/arqui-1/procesador-pipeline/register_file.sv 
+# -- Compiling module register_file
+# 
+# Top level modules:
+# 	register_file
+# End time: 23:53:57 on May 10,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/arqui-1/procesador-pipeline {C:/arqui-1/procesador-pipeline/testbench.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:53:57 on May 10,2022
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/arqui-1/procesador-pipeline" C:/arqui-1/procesador-pipeline/testbench.sv 
+# -- Compiling module testbench
+# 
+# Top level modules:
+# 	testbench
+# End time: 23:53:57 on May 10,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/arqui-1/procesador-pipeline {C:/arqui-1/procesador-pipeline/dmem_rom.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:53:57 on May 10,2022
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/arqui-1/procesador-pipeline" C:/arqui-1/procesador-pipeline/dmem_rom.sv 
+# -- Compiling module dmem_rom
+# 
+# Top level modules:
+# 	dmem_rom
+# End time: 23:53:58 on May 10,2022, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/arqui-1/procesador-pipeline {C:/arqui-1/procesador-pipeline/imem.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:53:58 on May 10,2022
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/arqui-1/procesador-pipeline" C:/arqui-1/procesador-pipeline/imem.sv 
+# -- Compiling module imem
+# 
+# Top level modules:
+# 	imem
+# End time: 23:53:58 on May 10,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+vsim work.testbench
+# vsim work.testbench 
+# Start time: 23:54:24 on May 10,2022
+# Loading sv_std.std
+# Loading work.testbench
+# Loading work.procesador_pipeline
+# Loading work.pc_register
+# Loading work.adder
+# Loading work.mux_2to1
+# Loading work.segment_if_id
+# Loading work.control_unit
+# Loading work.mux_4to1
+# Loading work.sign_extend
+# Loading work.register_file
+# Loading work.segment_id_ex
+# Loading work.alu
+# Loading work.segment_ex_mem
+# Loading work.memoryAccess
+# Loading work.memoryController
+# Loading work.dmem_ram
+# Loading work.dmem_rom
+# Loading work.imem
+# Loading work.segment_mem_wb
+# ** Warning: (vsim-3015) [PCDPC] - Port size (32) does not match connection size (1) for port 'A'. The port definition is at: C:/arqui-1/procesador-pipeline/mux_2to1.sv(1).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench/procesador/mux_alu File: C:/arqui-1/procesador-pipeline/procesador_pipeline.sv Line: 78
+# ** Warning: (vsim-3015) [PCDPC] - Port size (32) does not match connection size (1) for port 'alu_out'. The port definition is at: C:/arqui-1/procesador-pipeline/segment_ex_mem.sv(6).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench/procesador/ex_mem File: C:/arqui-1/procesador-pipeline/procesador_pipeline.sv Line: 84
+# End time: 23:56:03 on May 10,2022, Elapsed time: 0:01:39
+# Errors: 0, Warnings: 2

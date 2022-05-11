@@ -21,7 +21,10 @@ def leer_mem_data_output(ruta):
     result_list = []
     for line in f:
         if (line[0] != '/'):
-            result_list.append(int(line, 16))
+            if(line[0] != 'x'):
+                result_list.append(int(line, 16))
+            else:
+                result_list.append(0)
 
     return result_list
 
@@ -47,8 +50,7 @@ def guardar_imagen(ruta, lista):
 
 # MAIN
 # se deben cargar los resultados en una lista para su analisis
-result_list = leer_mem_data_output("mem_data_output.txt")
-
+result_list = leer_mem_data_output("imageOutput.txt")
 
 # se guarda la imagen ya procesada
 guardar_imagen("images/test-image-grises.bmp", result_list)

@@ -17,7 +17,7 @@ module mux_4to1 #(parameter N = 4) (input logic [N-1:0] A, B, C, D,
 			// 11 case:
 			2'b11: E = D;
 			
-			default: E = 32'bx; // undefined
+			//default: E = 32'bx; // undefined
 			
 		endcase
 	

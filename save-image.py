@@ -36,7 +36,8 @@ def escala_grises(nombre_imagen):
         for x in range(ancho):
             pixel = matriz[y][x]
             promedio = (pixel[0] + pixel[1] + pixel[2]) // 3
-            lista_grises.append(promedio)
+            numStr = str(hex(promedio))
+            lista_grises.append(numStr[2:])
 
     return lista_grises
 
@@ -118,7 +119,8 @@ def lectura_instr(ruta):
     f = open(ruta, "r")
     lista_ins = []
     for line in f:
-        lista_ins.append(int(line, 2))
+        numStr = str(hex(int(line, 2)))
+        lista_ins.append(numStr[2:])
 
     return lista_ins
 
@@ -132,7 +134,7 @@ lista_datos = escala_grises("images/test-image.bmp")
 lista_inst = lectura_instr("binaryCode.txt")
 
 # crear el archivo que lee la memoria de instrucciones
-completar_ins_mem("mem_instrucciones.txt", lista_inst)
+completar_ins_mem("instructions.txt", lista_inst)
 
 # crear el archivo que lee la memoria de datos para la imagen de entrada
-completar_data_mem("mem_data_input_image.txt", lista_datos)
+completar_data_mem("imageData.txt", lista_datos)

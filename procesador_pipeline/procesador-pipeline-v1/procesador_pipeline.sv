@@ -17,14 +17,15 @@ module procesador_pipeline(input clk, rst);
 			ALUSrc_id, RegWrite_id, RegSrc2;
 			
 	// en EX
-	logic [31:0] pc_plus_inm, pc_ex, alu_op2, alu_res_ex;
+	logic [31:0] pc_plus_inm, pc_ex, alu_op2, alu_res_ex, RD1_ex, RD2_ex, RD3_ex, inm_ex;
+	logic [3:0] RR3_ex; 
 	logic PCSource;
 	logic [2:0] ALUOp_ex;
 	logic MemToReg_ex, MemRead_ex, MemWrite_ex, ALUSrc_ex, RegWrite_ex, flagZ;
 	
 	// en MEM
 	logic MemToReg_mem, MemRead_mem, MemWrite_mem, RegWrite_mem, switchStart;
-	logic [31:0] alu_red_mem, RD3_mem, mem_data_out_mem;
+	logic [31:0] alu_res_mem, RD3_mem, mem_data_out_mem;
 	logic [3:0] RR3_mem;
 	
 	// en WB
@@ -36,7 +37,7 @@ module procesador_pipeline(input clk, rst);
 	// MODULOS EN IF (sin memoria)
 	pc_register pc (clk, ~rst, 1'd1, pc_in, pc_out);
 	
-	adder add_pc (pc_out, 31'd1, pc_plus1);
+	adder add_pc (pc_out, 32'd1, pc_plus1);
 	
 	mux_2to1 mux_pc (pc_plus1, pc_plus_inm, PCSource, pc_in);
 	
@@ -48,7 +49,7 @@ module procesador_pipeline(input clk, rst);
 	
 	
 	// MODULOS EM ID
-	control_unit control_unit (instr_31_30, instr_29_25, rst, JumpI, JumpCI, JumpCD,
+	control_unit control (instr_31_30, instr_29_25, rst, JumpI, JumpCI, JumpCD,
 							MemToReg_id, MemRead_id, MemWrite_id, ALUOp_id, ALUSrc_id, RegWrite_id,
 							ImmSrc, RegDtn, RegSrc2, RegSrc1);
 
@@ -74,7 +75,7 @@ module procesador_pipeline(input clk, rst);
 	// MODULOS EN EX
 	adder add_inm (pc_ex, inm_ex, pc_plus_inm);
 	
-	mux_2to1 mux_alu (RD2, inm_ex, ALUSrc_ex, alu_op2);
+	mux_2to1 mux_alu (RD2_ex, inm_ex, ALUSrc_ex, alu_op2);
 	
 	alu alu (RD1_ex, alu_op2, ALUOp_ex, alu_res_ex, flagZ);
 	
@@ -83,7 +84,7 @@ module procesador_pipeline(input clk, rst);
 	segment_ex_mem ex_mem (clk, rst, MemToReg_ex, MemRead_ex, MemWrite_ex, RegWrite_ex,
 					alu_res_ex, RD3_ex, RR3_ex,
 					MemToReg_mem, MemRead_mem, MemWrite_mem, RegWrite_mem,
-					alu_red_mem, RD3_mem, RR3_mem);
+					alu_res_mem, RD3_mem, RR3_mem);
 							
 	
 	// MODULO MEMORIA
@@ -98,11 +99,6 @@ module procesador_pipeline(input clk, rst);
 	
 	// MODULOS EN WB
 	mux_2to1 mux_wb (alu_res_wb, mem_data_out_wb, MemToReg_wb, result_wb);
-	
-	// Unidad de control
-	control_unit control (instr_31_30, instr_29_25,
-					JumpI, JumpCI, JumpCD, MemToReg_id, MemRead_id, MemWrite_id,
-					ALUOp_id, ALUSrc_id, RegWrite_id, ImmSrc, RegDtn, RegSrc2, RegSrc1);
-					
+				
 
 endmodule
