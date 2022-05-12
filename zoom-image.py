@@ -1,3 +1,13 @@
+"""
+Este programa corresponde a un demo del proyecto en alto nivel. El objetivo es
+obtener una idea básica de los scripts que se van a aplicar y también de las
+instrucciones que se necesitan para realizar la interpolación.
+
+Cada función se va a comentar para conocer su funcionalidad luego en el proyecto,
+además la función que corresponde al algoritmo se va a comentar con más detalles para
+conocer las instrucciones que se deben plantear en la arquitectura.
+"""
+
 # IMPORTACIONES
 
 import numpy as np
@@ -16,6 +26,9 @@ def leer_imagen(ruta):
     """
     Esta funcion guarda la imagen especificada en la ruta en una lista
     que contiene el RGB de cada pixel.
+
+    Es útil para poder obtener los valores que caracterizan cada pixel
+    de la imagen.
     """
     return np.array(imageio.imread(ruta), dtype='int').tolist()
 
@@ -23,6 +36,9 @@ def guardar_imagen(ruta, lista):
     """
     Esta funcion guarda la imagen especificada en una lista como escala de grises
     en la ruta espcificada.
+
+    Es útil para poder guardar como imagen la lista de valores en el archivo de salida
+    del procesador.
     """
 
     # convertir la lista en una matriz que especifique las filas y columnas para la imagen
@@ -41,6 +57,8 @@ def escala_grises(nombre_imagen):
     Esta funcion convierte la imagen especificada de RGB a una
     lista en escala de grises. En esta lista retornada cada elemento
     corresponde a la escala de gris de un pixel.
+
+    Es útil para traducir el RGB obtenido de la bibioteca a su equivalente en gris.
     """
     matriz = leer_imagen(nombre_imagen)
     ancho = 360
@@ -64,6 +82,8 @@ def zoom_imagen(lista, seccion):
             seccion -> el numero de la seccion a la que se le hace zoom
 
     output: lista_zoom -> lista con el zoom aplicado
+
+    Esta función corresponde a lo que se debe implementar como código ensamblador.
     """
 
     # se calcula el numero de pixel inicial del zoom de la imagen en la
