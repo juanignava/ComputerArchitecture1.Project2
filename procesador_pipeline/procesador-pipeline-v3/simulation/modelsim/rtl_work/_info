@@ -1,0 +1,507 @@
+m255
+K4
+z2
+!s11f vlog 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/arqui-1/procesador-pipeline/simulation/modelsim
+vadder
+Z1 DXx6 sv_std 3 std 0 22 VYECXdT12H8WgbUP_5Y6:3
+!s110 1652248433
+!i10b 1
+!s100 b9H^3F1k=j]Bz53HB0`B@0
+Z2 !s11b Dg1SIo80bB@j0V0VzS_@n1
+IdImf[O;KX_WokP:in9eVa2
+Z3 VDg1SIo80bB@j0V0VzS_@n1
+S1
+R0
+w1652213000
+8C:/arqui-1/procesador-pipeline/adder.sv
+FC:/arqui-1/procesador-pipeline/adder.sv
+!i122 0
+L0 1 9
+Z4 OV;L;2020.1;71
+r1
+!s85 0
+31
+!s108 1652248433.000000
+!s107 C:/arqui-1/procesador-pipeline/adder.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/arqui-1/procesador-pipeline|C:/arqui-1/procesador-pipeline/adder.sv|
+!i113 1
+Z5 o-sv -work work
+Z6 !s92 -sv -work work +incdir+C:/arqui-1/procesador-pipeline
+Z7 tCvgOpt 0
+valu
+R1
+Z8 !s110 1652248436
+!i10b 1
+!s100 QJC;Y6DbeJS[[<9hY`Zj32
+R2
+I[n]4<bJ]gQ0_WcO8YoaME3
+R3
+S1
+R0
+w1652244496
+8C:/arqui-1/procesador-pipeline/alu.sv
+FC:/arqui-1/procesador-pipeline/alu.sv
+!i122 12
+L0 1 37
+R4
+r1
+!s85 0
+31
+Z9 !s108 1652248436.000000
+!s107 C:/arqui-1/procesador-pipeline/alu.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/arqui-1/procesador-pipeline|C:/arqui-1/procesador-pipeline/alu.sv|
+!i113 1
+R5
+R6
+R7
+vcontrol_unit
+R1
+Z10 !s110 1652248437
+!i10b 1
+!s100 m?j9gZ3j2Q7:>l3;1Iz:A0
+R2
+ILI>;T_Nk;B?2B8;d@lO1h0
+R3
+S1
+R0
+w1652244526
+8C:/arqui-1/procesador-pipeline/control_unit.sv
+FC:/arqui-1/procesador-pipeline/control_unit.sv
+!i122 13
+L0 1 188
+R4
+r1
+!s85 0
+31
+Z11 !s108 1652248437.000000
+!s107 C:/arqui-1/procesador-pipeline/control_unit.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/arqui-1/procesador-pipeline|C:/arqui-1/procesador-pipeline/control_unit.sv|
+!i113 1
+R5
+R6
+R7
+vdmem_ram
+R1
+Z12 !s110 1652248435
+!i10b 1
+!s100 7Y@T]EZAL7W?B`i@?oFBH3
+R2
+Icj6n6:67<5=58;7YJl;Lm3
+R3
+S1
+R0
+w1652245478
+8C:/arqui-1/procesador-pipeline/dmem_ram.sv
+FC:/arqui-1/procesador-pipeline/dmem_ram.sv
+!i122 4
+L0 1 34
+R4
+r1
+!s85 0
+31
+Z13 !s108 1652248435.000000
+!s107 C:/arqui-1/procesador-pipeline/dmem_ram.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/arqui-1/procesador-pipeline|C:/arqui-1/procesador-pipeline/dmem_ram.sv|
+!i113 1
+R5
+R6
+R7
+vdmem_rom
+R1
+Z14 !s110 1652248438
+!i10b 1
+!s100 5Gi[TPCXE;eG2__MP]G8[3
+R2
+I>PfJK7Boa;Qnc5kR]cT`L2
+R3
+S1
+R0
+w1652245455
+8C:/arqui-1/procesador-pipeline/dmem_rom.sv
+FC:/arqui-1/procesador-pipeline/dmem_rom.sv
+!i122 17
+Z15 L0 1 17
+R4
+r1
+!s85 0
+31
+R11
+!s107 C:/arqui-1/procesador-pipeline/dmem_rom.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/arqui-1/procesador-pipeline|C:/arqui-1/procesador-pipeline/dmem_rom.sv|
+!i113 1
+R5
+R6
+R7
+vimem
+R1
+R14
+!i10b 1
+!s100 1o][l@L2eFe2PZGZg4LN31
+R2
+I2B<Ge3<n;45^4n=MmK?Tm1
+R3
+S1
+R0
+w1652245465
+8C:/arqui-1/procesador-pipeline/imem.sv
+FC:/arqui-1/procesador-pipeline/imem.sv
+!i122 18
+R15
+R4
+r1
+!s85 0
+31
+!s108 1652248438.000000
+!s107 C:/arqui-1/procesador-pipeline/imem.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/arqui-1/procesador-pipeline|C:/arqui-1/procesador-pipeline/imem.sv|
+!i113 1
+R5
+R6
+R7
+vmemoryAccess
+R1
+R12
+!i10b 1
+!s100 25V[ojR1=>SBUOBS;k0lH0
+R2
+INE>`oLUTK>g]M:[bNBe5=2
+R3
+S1
+R0
+w1652213318
+8C:/arqui-1/procesador-pipeline/memoryAccess.sv
+FC:/arqui-1/procesador-pipeline/memoryAccess.sv
+!i122 2
+L0 1 11
+R4
+r1
+!s85 0
+31
+Z16 !s108 1652248434.000000
+!s107 C:/arqui-1/procesador-pipeline/memoryAccess.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/arqui-1/procesador-pipeline|C:/arqui-1/procesador-pipeline/memoryAccess.sv|
+!i113 1
+R5
+R6
+R7
+nmemory@access
+vmemoryController
+R1
+R12
+!i10b 1
+!s100 Ea9DC@G9@Qa@NWVH`fe?A0
+R2
+IOeEf=Eodk46oEOIIi3z[B1
+R3
+S1
+R0
+w1652213347
+8C:/arqui-1/procesador-pipeline/memoryController.sv
+FC:/arqui-1/procesador-pipeline/memoryController.sv
+!i122 3
+Z17 L0 1 45
+R4
+r1
+!s85 0
+31
+R13
+!s107 C:/arqui-1/procesador-pipeline/memoryController.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/arqui-1/procesador-pipeline|C:/arqui-1/procesador-pipeline/memoryController.sv|
+!i113 1
+R5
+R6
+R7
+nmemory@controller
+vmux_2to1
+R1
+R12
+!i10b 1
+!s100 8GAdPbng<W3<L14`eScmH3
+R2
+I3kg<G0N=@L<RE`<35eA0U0
+R3
+S1
+R0
+w1652245608
+8C:/arqui-1/procesador-pipeline/mux_2to1.sv
+FC:/arqui-1/procesador-pipeline/mux_2to1.sv
+!i122 5
+L0 1 18
+R4
+r1
+!s85 0
+31
+R13
+!s107 C:/arqui-1/procesador-pipeline/mux_2to1.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/arqui-1/procesador-pipeline|C:/arqui-1/procesador-pipeline/mux_2to1.sv|
+!i113 1
+R5
+R6
+R7
+vmux_4to1
+R1
+R12
+!i10b 1
+!s100 TU?hDiSIaLk4S5gdlXSf]3
+R2
+IBcga9zL>SMcWFB6ONICCA1
+R3
+S1
+R0
+w1652245602
+8C:/arqui-1/procesador-pipeline/mux_4to1.sv
+FC:/arqui-1/procesador-pipeline/mux_4to1.sv
+!i122 6
+L0 1 24
+R4
+r1
+!s85 0
+31
+R13
+!s107 C:/arqui-1/procesador-pipeline/mux_4to1.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/arqui-1/procesador-pipeline|C:/arqui-1/procesador-pipeline/mux_4to1.sv|
+!i113 1
+R5
+R6
+R7
+vpc_register
+R1
+R8
+!i10b 1
+!s100 `djE<hC9=CY=bA>61Z9JA1
+R2
+ITQ6`_05_nhIRJQn]10k@V2
+R3
+S1
+R0
+w1652213645
+8C:/arqui-1/procesador-pipeline/pc_register.sv
+FC:/arqui-1/procesador-pipeline/pc_register.sv
+!i122 7
+L0 1 36
+R4
+r1
+!s85 0
+31
+R13
+!s107 C:/arqui-1/procesador-pipeline/pc_register.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/arqui-1/procesador-pipeline|C:/arqui-1/procesador-pipeline/pc_register.sv|
+!i113 1
+R5
+R6
+R7
+vprocesador_pipeline
+R1
+R10
+!i10b 1
+!s100 T<hOG_6T1N3Rc?;_Xg[dG3
+R2
+InA>`nUbBBGabV0=:C;0gb1
+R3
+S1
+R0
+w1652248248
+8C:/arqui-1/procesador-pipeline/procesador_pipeline.sv
+FC:/arqui-1/procesador-pipeline/procesador_pipeline.sv
+!i122 14
+L0 1 104
+R4
+r1
+!s85 0
+31
+R11
+!s107 C:/arqui-1/procesador-pipeline/procesador_pipeline.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/arqui-1/procesador-pipeline|C:/arqui-1/procesador-pipeline/procesador_pipeline.sv|
+!i113 1
+R5
+R6
+R7
+vregister_file
+R1
+R10
+!i10b 1
+!s100 cco9W;Og>dA@Q3FeSaC?d3
+R2
+Id_>5?d;LK<PEEj;lC:zEi0
+R3
+S1
+R0
+w1652245762
+8C:/arqui-1/procesador-pipeline/register_file.sv
+FC:/arqui-1/procesador-pipeline/register_file.sv
+!i122 15
+L0 1 157
+R4
+r1
+!s85 0
+31
+R11
+!s107 C:/arqui-1/procesador-pipeline/register_file.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/arqui-1/procesador-pipeline|C:/arqui-1/procesador-pipeline/register_file.sv|
+!i113 1
+R5
+R6
+R7
+vsegment_ex_mem
+R1
+R8
+!i10b 1
+!s100 [dJczfh5_=Az6ACnXB[R90
+R2
+I7n3WUU_@Sc_^AZ<N@mCSF0
+R3
+S1
+R0
+w1652213679
+8C:/arqui-1/procesador-pipeline/segment_ex_mem.sv
+FC:/arqui-1/procesador-pipeline/segment_ex_mem.sv
+!i122 8
+L0 1 32
+R4
+r1
+!s85 0
+31
+R9
+!s107 C:/arqui-1/procesador-pipeline/segment_ex_mem.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/arqui-1/procesador-pipeline|C:/arqui-1/procesador-pipeline/segment_ex_mem.sv|
+!i113 1
+R5
+R6
+R7
+vsegment_id_ex
+R1
+R8
+!i10b 1
+!s100 a8eA[Pn6`@n74n[<2KzPO0
+R2
+IOz3H;FSV3GSBYAWTSV:h91
+R3
+S1
+R0
+w1652213699
+8C:/arqui-1/procesador-pipeline/segment_id_ex.sv
+FC:/arqui-1/procesador-pipeline/segment_id_ex.sv
+!i122 9
+L0 1 48
+R4
+r1
+!s85 0
+31
+R9
+!s107 C:/arqui-1/procesador-pipeline/segment_id_ex.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/arqui-1/procesador-pipeline|C:/arqui-1/procesador-pipeline/segment_id_ex.sv|
+!i113 1
+R5
+R6
+R7
+vsegment_if_id
+R1
+R8
+!i10b 1
+!s100 UhJ]SBREgeke1he>Zm<2`2
+R2
+Iok^6LhH[<7g`gkXBc]dYn2
+R3
+S1
+R0
+w1652213746
+8C:/arqui-1/procesador-pipeline/segment_if_id.sv
+FC:/arqui-1/procesador-pipeline/segment_if_id.sv
+!i122 10
+R17
+R4
+r1
+!s85 0
+31
+R9
+!s107 C:/arqui-1/procesador-pipeline/segment_if_id.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/arqui-1/procesador-pipeline|C:/arqui-1/procesador-pipeline/segment_if_id.sv|
+!i113 1
+R5
+R6
+R7
+vsegment_mem_wb
+R1
+R8
+!i10b 1
+!s100 9gd@SXMUUd00<kznBzHem2
+R2
+I:=bYmcSN56zOW`CaWGGSf2
+R3
+S1
+R0
+w1652213853
+8C:/arqui-1/procesador-pipeline/segment_mem_wb.sv
+FC:/arqui-1/procesador-pipeline/segment_mem_wb.sv
+!i122 11
+L0 1 28
+R4
+r1
+!s85 0
+31
+R9
+!s107 C:/arqui-1/procesador-pipeline/segment_mem_wb.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/arqui-1/procesador-pipeline|C:/arqui-1/procesador-pipeline/segment_mem_wb.sv|
+!i113 1
+R5
+R6
+R7
+vsign_extend
+R1
+!s110 1652248434
+!i10b 1
+!s100 00FinZiNKl;b9N`cJ6h>z3
+R2
+INjC5Uf5k]9o^3S`1LP2U[0
+R3
+S1
+R0
+w1652247573
+8C:/arqui-1/procesador-pipeline/sign_extend.sv
+FC:/arqui-1/procesador-pipeline/sign_extend.sv
+!i122 1
+L0 1 20
+R4
+r1
+!s85 0
+31
+R16
+!s107 C:/arqui-1/procesador-pipeline/sign_extend.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/arqui-1/procesador-pipeline|C:/arqui-1/procesador-pipeline/sign_extend.sv|
+!i113 1
+R5
+R6
+R7
+vtestbench
+R1
+R10
+!i10b 1
+!s100 [JH>oEiBG^8WML>=F9[Ij1
+R2
+ImdJPmf=iZPhPP8K;=jUZD1
+R3
+S1
+R0
+w1652247206
+8C:/arqui-1/procesador-pipeline/testbench.sv
+FC:/arqui-1/procesador-pipeline/testbench.sv
+!i122 16
+L0 1 27
+R4
+r1
+!s85 0
+31
+R11
+!s107 C:/arqui-1/procesador-pipeline/testbench.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/arqui-1/procesador-pipeline|C:/arqui-1/procesador-pipeline/testbench.sv|
+!i113 1
+R5
+R6
+R7
