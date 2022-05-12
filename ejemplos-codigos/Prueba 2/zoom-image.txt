@@ -1,0 +1,12 @@
+SUMI R2, R0, 6
+SUM R1, R0, R0
+_inicio:
+SUMI R1, R1, 2
+SCD R1, R2, _inicio
+RESI R3, R2, 1
+SI _fin
+RESI R3, R2, 1
+RESI R4, R2, 1
+RESI R5, R2, 1
+_fin:
+RESI R3, R2, 1
