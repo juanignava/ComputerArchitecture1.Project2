@@ -7,8 +7,8 @@ import imageio
 
 NOMBRE_IMAGEN = "images/test-image.bmp"
 PIXELES_IMAGEN = 360
-ZOOM = 4
-PIXELES_NIMAGEN = PIXELES_IMAGEN // ZOOM
+ZOOM = 0
+#PIXELES_NIMAGEN = PIXELES_IMAGEN // ZOOM
 
 # FUNCIONES
 
@@ -88,7 +88,7 @@ def zoom_imagen(lista, seccion):
                 lista_zoom[contador] = lista[ref]
 
         contador += 1
-    
+    """
     # Luego se añaden a la memoria los elementos de la imagen que completan las columnas
     # de la nueva imagen, sin estos valores no se pueden calcular el resto
     contador = 0
@@ -128,7 +128,7 @@ def zoom_imagen(lista, seccion):
 
         contador += 1
     
-    
+    """
     return lista_zoom
 
 def guardar_archivo(nombre_archivo, lista):
@@ -158,7 +158,7 @@ lista_grises = escala_grises(NOMBRE_IMAGEN)
 guardar_archivo("text-files/matriz-gris.txt", lista_grises)
 
 # crear la nueva imagen con el zoom en la posicion deseada
-lista_zoom = zoom_imagen(lista_grises, 8)
+lista_zoom = zoom_imagen(lista_grises, 0)
 guardar_archivo("text-files/matriz-zoom.txt", lista_zoom)
 
 # guardar el resultado de la imagen

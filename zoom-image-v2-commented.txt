@@ -13,6 +13,19 @@
 #       esta va de la direccion 8500 hasta la 138 099. En total corresponde a
 #       229 600 valores (360x360)
 
+### codigo que estaba al final
+SUMI R1, R0, 32500
+MULI R1, R1, 4
+RESI R1, R1, 1
+GDR R2, 0(R1)
+CRG R2, 0(R1)
+SUM R0, R0, R0
+SUM R0, R0, R0
+SUM R0, R0, R0
+SUM R0, R0, R0
+###
+
+
 # CODIGO 
 
 _valores-iniciales:
@@ -23,7 +36,7 @@ _valores-iniciales:
     SUMI R6, R0, 8500
 
     # R7 = contador en los ciclos
-    SUMI R7, R0, R0
+    SUM R7, R0, R0
 
 _pixeles_conocidos:
 
@@ -46,7 +59,7 @@ _pixeles_conocidos:
     SUM R5, R5, R2
 
     # R8 = direccion de la imagen resultado donde se copia el valor del pixel
-    DIVI R8, R7, 4
+    SUM R8, R7, R0
     SUM R8, R8, R6
 
     # Cargar valor del pixel en R5 y copiarlo en imagen resultado
@@ -57,10 +70,9 @@ _pixeles_conocidos:
 
         # Sumar 1 en el contador y verificar si termino el analisis
         SUMI R7, R7, 1
-        # 32400 = 360 x 360
+        # El analisis es hasta 32400 ((90 x 90) x 4)
         SUMI R8, R0, 32400
-        DIVI R9, R7, 4
-        SCD R9, R8, _pixeles_conocidos
+        SCD R7, R8, _pixeles_conocidos
 
     SUM R7, R0, R0
 

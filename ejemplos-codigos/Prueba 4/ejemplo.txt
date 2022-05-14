@@ -5,74 +5,25 @@ SUM R7, R0, R0
 _pixeles_conocidos:
 DIVI R3, R7, 360
 RSDI R4, R7, 360
+SCD R4, R0, _misma_fila
+SUM R15, R7, R0
+_misma_fila:
 RSDI R3, R3, 4
 RSDI R4, R4, 4
 SCD R3, R0, _pc-next
 SCD R4, R0, _pc-next
-DIVI R5, R7, 4
+RES R5, R7, R15
+MULI R5, R5, 4
+SUM R5, R15, R5
+DIVI R5, R5, 16
 SUM R5, R5, R2
-DIVI R8, R7, 4
+SUM R8, R7, R0
 SUM R8, R8, R6
 CRG R5, 0(R5)
 GDR R5, 0(R8)
 _pc-next:
 SUMI R7, R7, 1
 SUMI R8, R0, 32400
-DIVI R9, R7, 4
-SCD R9, R8, _pixeles_conocidos
+MULI R8, R8, 4
+SCD R7, R8, _pixeles_conocidos
 SUM R7, R0, R0
-_completar-columnas:
-DIVI R3, R7, 360
-RSDI R4, R7, 360
-RSDI R3, R3, 4
-RSDI R4, R4, 4
-SCI R3, R0, _cc-next
-SCD R4, R0, _cc-next
-MULI R8, R3, 360
-RES R8, R7, R8
-SUM R8, R8, R6
-SUMI R9, R8, 1440
-CRG R10, 0(R8)
-CRG R11, 0(R9)
-RES R12, R9, R7
-RES R13, R7, R8
-RES R14, R9, R8
-MUL R10, R10, R12
-MUL R11, R11, R13
-SUM R11, R11, R10
-DIV R11, R11, R14
-SUM R8, R6, R7
-GDR R11, 0(R8)
-_cc-next:
-SUMI R7, R7, 1
-SUMI R8, R0, 32768
-MULI R8, R8, 3
-SUMI R8, R8, 30216
-SCD R7, R8, _completar-columnas
-SUM R7, R0, R0
-_completar-valores:
-DIVI R3, R7, 360
-RSDI R4, R7, 360
-RSDI R3, R3, 4
-RSDI R4, R4, 4
-SCI R4, R0, _cv-next
-RES R8, R7, R4
-SUM R8, R8, R6
-SUMI R9, R8, 4
-CRG R10, 0(R8)
-CRG R11, 0(R9)
-RES R12, R9, R7
-RES R13, R7, R8
-RES R14, R9, R8
-MUL R10, R10, R12
-MUL R11, R11, R13
-SUM R11, R11, R10
-DIV R11, R11, R14
-SUM R8, R6, R7
-GDR R11, 0(R8)
-_cv-next:
-SUMI R7, R7, 1
-SUMI R8, R0, 32768
-MULI R8, R8, 3
-SUMI R8, R8, 30212
-SCD R7, R8, _completar-valores
