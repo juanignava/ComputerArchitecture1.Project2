@@ -913,7 +913,11 @@ registerDictionary = {
     "R15": "1111"
 }
 
+<<<<<<< Updated upstream
 instructionElements = getInstructionElements('ejemplo.txt')
+=======
+instructionElements = getInstructionElements('zoom-image.txt')
+>>>>>>> Stashed changes
 
 instructionElements = riskControlUnit(instructionElements, typeDictionary, opcodeDictionary)
 
