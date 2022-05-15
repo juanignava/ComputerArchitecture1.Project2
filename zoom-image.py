@@ -108,7 +108,7 @@ def zoom_imagen(lista, seccion):
                 lista_zoom[contador] = int(sum1 + sum2)
 
         contador += 1
-    """
+    
     # Por ultimo, se añade el resto de los valores en la lista de resultado, se deben completar
     #   los valores de cada fila
     contador = 0
@@ -128,7 +128,7 @@ def zoom_imagen(lista, seccion):
 
         contador += 1
     
-    """
+    
     return lista_zoom
 
 def guardar_archivo(nombre_archivo, lista):
@@ -158,7 +158,7 @@ lista_grises = escala_grises(NOMBRE_IMAGEN)
 guardar_archivo("text-files/matriz-gris.txt", lista_grises)
 
 # crear la nueva imagen con el zoom en la posicion deseada
-lista_zoom = zoom_imagen(lista_grises, 0)
+lista_zoom = zoom_imagen(lista_grises, 9)
 guardar_archivo("text-files/matriz-zoom.txt", lista_zoom)
 
 # guardar el resultado de la imagen
