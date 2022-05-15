@@ -88,7 +88,7 @@ def zoom_imagen(lista, seccion):
                 lista_zoom[contador] = lista[ref]
 
         contador += 1
-    """
+    
     # Luego se añaden a la memoria los elementos de la imagen que completan las columnas
     # de la nueva imagen, sin estos valores no se pueden calcular el resto
     contador = 0
@@ -108,7 +108,7 @@ def zoom_imagen(lista, seccion):
                 lista_zoom[contador] = int(sum1 + sum2)
 
         contador += 1
-
+    """
     # Por ultimo, se añade el resto de los valores en la lista de resultado, se deben completar
     #   los valores de cada fila
     contador = 0

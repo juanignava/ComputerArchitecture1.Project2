@@ -89,6 +89,7 @@ def completar_data_mem(ruta, lista_datos):
     ruta -> nombre del archivo .txt a alterar
     lista_datos -> lista con los datos de la imagen de entrada
     """
+    """
     f = open(ruta, "w")
 
     cont = 0
@@ -101,6 +102,18 @@ def completar_data_mem(ruta, lista_datos):
     while (cont < end_limit):
         f.write(str(lista_datos[cont]) +  "\n")
         cont += 1
+
+    f.close()
+    """
+
+    f = open(ruta, "w")
+
+    dir_inicial = (ZOOM_SECTION // 4) * 360 * 90 + (ZOOM_SECTION % 4) * 90
+
+    for fila in range(90):
+        for columna in range(90):
+            elem = dir_inicial + 360 * fila + columna
+            f.write(str(lista_datos[elem]) + "\n")
 
     f.close()
 
