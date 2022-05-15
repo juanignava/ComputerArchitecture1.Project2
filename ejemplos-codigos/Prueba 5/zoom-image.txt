@@ -1,0 +1,12 @@
+_valores_iniciales:
+SUMI R1, R0, 400
+SUMI R2, R0, 8500
+SUMI R3, R0, 227
+SUMI R4, R0, 133
+SCD R2, R3, _pixeles_conocidos
+GDR R4, 0(R2)
+_pixeles_conocidos:
+SUMI R5, R2, 1
+GDR R3, 0(R5)
+CRG R6, 0(R2)
+CRG R7, 0(R5)
